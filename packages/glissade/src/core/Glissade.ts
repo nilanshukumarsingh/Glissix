@@ -1,8 +1,11 @@
 import {
   DEFAULT_CONFIG,
+  MATERIALS,
   sanitizeConfig,
   type GlissadeConfig,
+  type GlissadeMaterial,
   type GlissadeState,
+  type GlissadeStep,
 } from './types'
 
 export class Glissade {
@@ -34,7 +37,16 @@ export class Glissade {
     this.config = sanitizeConfig(config, this.config)
   }
 
-  step() {
+  useMaterial(name: GlissadeMaterial): void {
+    this.config = sanitizeConfig(MATERIALS[name], this.config)
+  }
+
+  applyImpulse(vx: number, vy: number): void {
+    this.state.vx += vx
+    this.state.vy += vy
+  }
+
+  step(): GlissadeStep {
     const ax = (this.state.targetX - this.state.x) * this.config.tension
     const ay = (this.state.targetY - this.state.y) * this.config.tension
 
@@ -50,6 +62,18 @@ export class Glissade {
       vx: this.state.vx,
       vy: this.state.vy,
     }
+  }
+
+  getVelocity(): number {
+    return Math.hypot(this.state.vx, this.state.vy)
+  }
+
+  updateValue(target: number, callback: (value: number, velocity: number) => void): void {
+    this.state.targetX = target
+    this.state.targetY = 0
+
+    const next = this.step()
+    callback(next.x, Math.abs(next.vx))
   }
 
   getState(): GlissadeState {
@@ -68,5 +92,5 @@ export class Glissade {
   }
 }
 
-export { DEFAULT_CONFIG, sanitizeConfig }
-export type { GlissadeConfig, GlissadeState }
+export { DEFAULT_CONFIG, MATERIALS, sanitizeConfig }
+export type { GlissadeConfig, GlissadeMaterial, GlissadeState, GlissadeStep }

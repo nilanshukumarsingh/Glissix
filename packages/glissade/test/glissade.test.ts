@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { DEFAULT_CONFIG, Glissade } from '../src'
+import { DEFAULT_CONFIG, Glissade, MATERIALS } from '../src'
 
 describe('Glissade', () => {
   it('uses default config values', () => {
@@ -94,5 +94,44 @@ describe('Glissade', () => {
       tension: 1,
       friction: 0.01,
     })
+  })
+
+  it('applies a named material preset', () => {
+    const motion = new Glissade(0, 0)
+
+    motion.useMaterial('LEATHER')
+
+    expect(motion.config).toEqual(MATERIALS.LEATHER)
+  })
+
+  it('injects velocity through impulses', () => {
+    const motion = new Glissade(0, 0)
+
+    motion.applyImpulse(12, -4)
+
+    expect(motion.step()).toMatchObject({
+      x: 9.84,
+      y: -3.28,
+    })
+  })
+
+  it('returns the current velocity magnitude', () => {
+    const motion = new Glissade(0, 0)
+
+    motion.applyImpulse(3, 4)
+
+    expect(motion.getVelocity()).toBe(5)
+  })
+
+  it('updates scalar progress values for one-dimensional interactions', () => {
+    const motion = new Glissade(0, 0)
+    let captured = { value: 0, velocity: 0 }
+
+    motion.updateValue(1, (value, velocity) => {
+      captured = { value, velocity }
+    })
+
+    expect(captured.value).toBeGreaterThan(0)
+    expect(captured.velocity).toBeGreaterThan(0)
   })
 })

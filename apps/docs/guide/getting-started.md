@@ -2,6 +2,17 @@
 
 Glissade is a small physics engine for UI motion where the feel matters as much as the destination.
 
+## Why it feels different
+
+Instead of making users guess abstract spring values and hope the result feels right, Glissade can start from a material identity and then refine from there.
+
+Available material presets:
+
+- `LEATHER`
+- `RUBBER`
+- `HONEY`
+- `GHOST`
+
 ## Install
 
 ```bash
@@ -25,11 +36,8 @@ import { Glissade } from 'glissade'
 
 const card = document.querySelector('.card') as HTMLElement
 
-const motion = new Glissade(0, 0, {
-  mass: 1,
-  tension: 0.15,
-  friction: 0.82,
-})
+const motion = new Glissade(0, 0)
+motion.useMaterial('LEATHER')
 
 window.addEventListener('pointermove', (event) => {
   motion.setTarget(event.clientX, event.clientY)
@@ -46,6 +54,31 @@ tick()
 
 Glissade only computes state. Your app decides how to render that state.
 
+## Throwing and impulses
+
+You can inject velocity directly when you want to simulate a flick or throw:
+
+```ts
+motion.applyImpulse(12, -4)
+```
+
+## Scalar interactions
+
+For one-dimensional UI like drawers and sheets, use `updateValue()`:
+
+```ts
+const drawer = new Glissade(0, 0)
+
+function frame() {
+  drawer.updateValue(isOpen ? 1 : 0, (progress, velocity) => {
+    panel.style.opacity = `${0.4 + progress * 0.6}`
+    panel.style.transform = `scale(${0.84 + progress * 0.16})`
+  })
+
+  requestAnimationFrame(frame)
+}
+```
+
 ## Config reference
 
 - `mass`: Heavier motion accelerates more slowly.
@@ -58,6 +91,8 @@ Glissade only computes state. Your app decides how to render that state.
 - Draggable cards with snap-back behavior
 - Magnetic buttons and icon clusters
 - Floating tool palettes and panels
+- Kinetic drawers and command palettes
+- Elastic chains and trailing systems
 - Experimental canvas and WebGL interactions
 
 ## Try the demo app

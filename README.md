@@ -2,6 +2,14 @@
 
 Glissade is a small TypeScript physics engine for tactile UI motion. It focuses on inertia, weight, and friction so interface elements feel dragged, pulled, and released instead of simply animated from A to B.
 
+## Features
+
+- Material presets such as `LEATHER`, `RUBBER`, `HONEY`, and `GHOST`
+- Velocity injection with `applyImpulse()` for throw and flick interactions
+- Scalar animation helper with `updateValue()` for drawers, sheets, and toggles
+- Runtime-safe config clamping to keep motion stable
+- Zero runtime dependencies
+
 ## Workspace Layout
 
 ```text
@@ -61,12 +69,10 @@ cmd /c npm.cmd run test
 ```ts
 import { Glissade } from 'glissade'
 
-const motion = new Glissade(0, 0, {
-  mass: 1.2,
-  tension: 0.14,
-  friction: 0.82,
-})
+const motion = new Glissade(0, 0)
 
+motion.useMaterial('LEATHER')
+motion.applyImpulse(8, -4)
 motion.setTarget(240, 120)
 
 function frame() {
@@ -83,7 +89,7 @@ frame()
 1. Install dependencies from the repo root with `cmd /c npm.cmd install`.
 2. Run `cmd /c npm.cmd run test` and confirm the Vitest suite passes.
 3. Run `cmd /c npm.cmd run build:pkg` and confirm the package emits `dist/`.
-4. Run `cmd /c npm.cmd run dev:web` and move the pointer inside the lab area.
+4. Run `cmd /c npm.cmd run dev:web` and verify the Magnetic Core, Signal Analyzer, Specimen Drawer, and Elastic Chain demos.
 5. Run `cmd /c npm.cmd run dev:docs` and verify the docs pages load.
 6. Run `cmd /c npm.cmd pack --dry-run --workspace glissade` before publishing.
 

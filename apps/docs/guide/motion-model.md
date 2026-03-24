@@ -53,3 +53,12 @@ Config values are clamped at runtime to keep motion stable:
 - `mass: 1.3`
 - `tension: 0.09`
 - `friction: 0.9`
+
+## Material presets
+
+Glissade ships with named identities so you can start from feel first:
+
+- `LEATHER`: heavy and controlled
+- `RUBBER`: light and snappy
+- `HONEY`: dense and slow settling
+- `GHOST`: nearly frictionless and airy
