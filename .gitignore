@@ -1,0 +1,16 @@
+# Node
+node_modules/
+dist/
+.env
+.DS_Store
+coverage/
+.vite/
+apps/docs/.vitepress/cache/
+apps/docs/.vitepress/dist/
+
+# Logs
+npm-debug.log*
+yarn-error.log*
+
+# Build outputs
+*.tsbuildinfo
