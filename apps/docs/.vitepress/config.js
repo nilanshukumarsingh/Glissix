@@ -3,8 +3,11 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: 'Glissade',
   description: 'Inertia-driven motion for tactile interfaces.',
+  head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }]],
   themeConfig: {
+    logo: '/favicon.svg',
     nav: [
+      { text: 'Home', link: '/' },
       { text: 'Guide', link: '/guide/getting-started' },
       { text: 'API', link: '/api/glissade' },
     ],
@@ -14,6 +17,7 @@ export default defineConfig({
         items: [
           { text: 'Getting Started', link: '/guide/getting-started' },
           { text: 'Motion Model', link: '/guide/motion-model' },
+          { text: 'Author', link: '/guide/author' },
         ],
       },
       {
@@ -21,5 +25,13 @@ export default defineConfig({
         items: [{ text: 'Glissade API', link: '/api/glissade' }],
       },
     ],
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/nilanshukumarsingh' },
+      { icon: 'linkedin', link: 'https://www.linkedin.com/in/nilanshukumarsingh' },
+    ],
+    footer: {
+      message: 'Glissade is built as a tactile UI motion engine for modern interfaces.',
+      copyright: 'Built by Nilanshu Kumar Singh',
+    },
   },
 })

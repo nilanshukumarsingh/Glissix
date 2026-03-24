@@ -20,12 +20,17 @@ const app = getRequiredElement<HTMLDivElement>('#app')
 app.innerHTML = `
   <div class="shell">
     <header class="topbar">
-      <div>
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <span class="brand-orb"></span>
+        </div>
+        <div>
         <p class="eyebrow">Inertia-driven interface motion</p>
         <h1>Glissade</h1>
+        </div>
       </div>
       <nav class="links">
-        <a href="http://localhost:5174" target="_blank" rel="noreferrer">Docs</a>
+        <a href="http://localhost:5174" rel="noreferrer">Docs</a>
         <span class="version">v0.1.0</span>
       </nav>
     </header>
@@ -39,12 +44,40 @@ app.innerHTML = `
           then watch a single engine power the same tactile language across cards, cursors,
           drawers, and floating surfaces.
         </p>
-        <div class="install">npm install glissade</div>
+        <div class="actions">
+          <div class="install">npm install glissade</div>
+          <a class="secondary-link" href="http://localhost:5174/guide/getting-started" rel="noreferrer">Read the guide</a>
+        </div>
         <ul class="notes">
           <li>Class-based API with rendering left to your app.</li>
           <li>Runtime-safe config clamping to avoid unstable motion.</li>
           <li>Workspace package and docs site ready for publishing.</li>
         </ul>
+        <div class="code-preview">
+          <p class="code-label">Quick sample</p>
+          <pre><code>const motion = new Glissade(0, 0, {
+  mass: 1.2,
+  tension: 0.14,
+  friction: 0.82,
+})
+
+motion.setTarget(pointerX, pointerY)
+const { x, y } = motion.step()</code></pre>
+        </div>
+        <div class="maker">
+          <p class="code-label">Built by</p>
+          <h3>Nilanshu Kumar Singh</h3>
+          <p>
+            Full-stack developer focused on tactile interfaces, solid engineering
+            fundamentals, and product work that feels deliberate instead of generic.
+          </p>
+          <div class="maker-links">
+            <a href="https://www.linkedin.com/in/nilanshukumarsingh" rel="noreferrer">LinkedIn</a>
+            <a href="https://github.com/nilanshukumarsingh" rel="noreferrer">GitHub</a>
+            <a href="https://nilanshu.vercel.app/" rel="noreferrer">Portfolio</a>
+            <a href="http://x.com/nilanshukumar81" rel="noreferrer">X</a>
+          </div>
+        </div>
       </section>
 
       <section class="lab-panel">
@@ -84,6 +117,18 @@ app.innerHTML = `
             <strong id="friction-value">${DEFAULT_CONFIG.friction.toFixed(2)}</strong>
             <input id="friction" type="range" min="0.05" max="0.99" step="0.01" value="${DEFAULT_CONFIG.friction}" />
           </label>
+        </div>
+        <div class="detail-grid">
+          <article>
+            <p class="panel-label">Why it feels different</p>
+            <h4>Movement has drag, not just destination.</h4>
+            <p>Glissade preserves velocity and damps it over time, which makes pointer-driven UI feel weighted instead of synthetic.</p>
+          </article>
+          <article>
+            <p class="panel-label">Docs in local dev</p>
+            <h4>The docs run separately on port 5174.</h4>
+            <p>The website and docs are separate apps in the monorepo, so during development they run as different local servers.</p>
+          </article>
         </div>
       </section>
     </main>
