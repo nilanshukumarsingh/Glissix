@@ -67,7 +67,7 @@ All scripts can be run directly from the workspace root:
 Once the package is installed in your project (`npm install glissix`), initialize it as follows:
 
 ```typescript
-import { glissix } from 'glissix';
+import { Glissix } from 'glissix';
 
 // 1. Instantiate with a starting coordinate (0, 0)
 const motion = new Glissix(0, 0);
@@ -105,7 +105,7 @@ To publish a new version of the package:
    ```
 2. Navigate to the package directory:
    ```bash
-   cd packages/Glissix
+   cd packages/glissix
    ```
 3. Run the publish command with public access:
    ```bash
