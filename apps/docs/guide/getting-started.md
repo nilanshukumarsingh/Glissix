@@ -16,7 +16,7 @@ Available material presets:
 ## Install
 
 ```bash
-npm install glissade
+npm install glissix
 ```
 
 ## Mental model
@@ -32,7 +32,7 @@ The engine does not touch the DOM for you. That separation keeps it framework-ag
 ## Quick start
 
 ```ts
-import { Glissade } from 'glissade'
+import { Glissade } from 'glissix'
 
 const card = document.querySelector('.card') as HTMLElement
 

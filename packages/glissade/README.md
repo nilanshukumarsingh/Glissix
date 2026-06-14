@@ -1,10 +1,10 @@
-# Glissade
+# Glissix
 
 An inertia-driven, spring-damper physics engine for tactile UI motion. Focuses on physical simulation (momentum, weight, and drag) so that interface elements feel dragged, flicked, and released naturally, instead of executing rigid time-based bezier curves.
 
-[![npm version](https://img.shields.io/npm/v/glissade.svg?style=flat-square)](https://www.npmjs.com/package/glissade)
-[![npm downloads](https://img.shields.io/npm/dm/glissade.svg?style=flat-square)](https://www.npmjs.com/package/glissade)
-[![license](https://img.shields.io/npm/l/glissade.svg?style=flat-square)](https://github.com/nilanshukumarsingh/Glissade)
+[![npm version](https://img.shields.io/npm/v/glissix.svg?style=flat-square)](https://www.npmjs.com/package/glissix)
+[![npm downloads](https://img.shields.io/npm/dm/glissix.svg?style=flat-square)](https://www.npmjs.com/package/glissix)
+[![license](https://img.shields.io/npm/l/glissix.svg?style=flat-square)](https://github.com/nilanshukumarsingh/Glissade)
 
 ---
 
@@ -20,7 +20,7 @@ An inertia-driven, spring-damper physics engine for tactile UI motion. Focuses o
 
 ## ✦ Core Physical Parameters
 
-Unlike duration-based animators, Glissade uses a mathematical spring-mass-damper system:
+Unlike duration-based animators, Glissix uses a mathematical spring-mass-damper system:
 
 * **`mass` (0.1 - 10.0)**: Represents the inertia of the moving element. A higher mass creates a feeling of weight, taking longer to accelerate and decelerate.
 * **`tension` (0.001 - 1.0)**: Represents the stiffness of the spring. High tension pulls the element toward the target aggressively, while lower tension feels loose.
@@ -31,7 +31,7 @@ Unlike duration-based animators, Glissade uses a mathematical spring-mass-damper
 ## ✦ Installation
 
 ```bash
-npm install glissade
+npm install glissix
 ```
 
 ---
@@ -41,7 +41,7 @@ npm install glissade
 ### 1. Basic 2D Position Tracking (e.g. Card Drag & Flick)
 
 ```typescript
-import { Glissade } from 'glissade';
+import { Glissade } from 'glissix';
 
 // Instantiate with starting coordinates (0, 0)
 const tracker = new Glissade(0, 0);
@@ -79,7 +79,7 @@ animate();
 You can use the helper `updateValue()` to drive single variables like sheet positions, opacity, scale, or scroll offsets:
 
 ```typescript
-import { Glissade } from 'glissade';
+import { Glissade } from 'glissix';
 
 const opacityTracker = new Glissade(0, 0); // initial value 0
 opacityTracker.useMaterial('RUBBER');
@@ -158,11 +158,11 @@ Resets the position, target, and sets velocities to zero.
 
 ---
 
-## ✦ Why Glissade?
+## ✦ Why Glissix?
 
 Traditional transition tools require you to specify a preset curve (like ease-out) and duration. If a user flicks an element halfway through an animation, the motion snaps awkwardly. 
 
-**Glissade solves this**:
+**Glissix solves this**:
 1. **Preserved Momentum**: If a user drags and releases at speed, the swipe velocity is fed directly into the engine, producing a seamless decelerating slide.
 2. **Dynamic Redirection**: Changing targets mid-flight alters the acceleration vector smoothly, preventing sudden direction snaps.
 3. **Pure Math**: No browser timers or complex rendering context is required, making it incredibly lightweight and deterministic.

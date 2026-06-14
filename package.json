@@ -8,9 +8,9 @@
   ],
   "scripts": {
     "build": "npm run build --workspaces",
-    "build:pkg": "npm run build --workspace glissade",
+    "build:pkg": "npm run build --workspace glissix",
     "dev:web": "npm run dev --workspace web",
     "dev:docs": "npm run dev --workspace docs",
-    "test": "npm run test --workspace glissade"
+    "test": "npm run test --workspace glissix"
   }
 }

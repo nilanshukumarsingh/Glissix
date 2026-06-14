@@ -5,7 +5,7 @@ import {
   MATERIALS,
   type GlissadeConfig,
   type GlissadeMaterial,
-} from 'glissade'
+} from 'glissix'
 
 function getRequiredElement<T extends Element>(
   selector: string,
@@ -35,7 +35,7 @@ app.innerHTML = `
         </div>
         <div>
           <p class="eyebrow">Inertia-driven interface motion</p>
-          <h1 class="kinetic-text">Glissade</h1>
+          <h1 class="kinetic-text">Glissix</h1>
         </div>
       </div>
       <nav class="links">
@@ -49,11 +49,11 @@ app.innerHTML = `
         <p class="kicker">Obsidian Lab</p>
         <h2>Material motion for interfaces that need drag, memory, and intent.</h2>
         <p class="lede">
-          Glissade treats interaction like a physical identity problem instead of a number guessing game.
+          Glissix treats interaction like a physical identity problem instead of a number guessing game.
           Pick a material, tune force inside the XY field, and inspect the resulting waveform in real time.
         </p>
         <div class="actions">
-          <div class="install">npm install glissade</div>
+          <div class="install">npm install glissix</div>
           <a class="secondary-link" href="http://localhost:5174/guide/getting-started">Read the guide</a>
         </div>
         <ul class="notes">

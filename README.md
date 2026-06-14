@@ -1,6 +1,6 @@
-# Glissade Workspace
+# Glissix Workspace
 
-Glissade is a lightweight, high-performance TypeScript physics engine for tactile UI motion. It models inertia, mass, tension, and friction so that interface components feel dragged, pulled, and naturally released rather than following artificial cubic-bezier curves.
+Glissix is a lightweight, high-performance TypeScript physics engine for tactile UI motion. It models inertia, mass, tension, and friction so that interface components feel dragged, pulled, and naturally released rather than following artificial cubic-bezier curves.
 
 This repository is organized as a monorepo workspace containing the core physics engine library, interactive test suites, and documentation.
 
@@ -8,7 +8,7 @@ This repository is organized as a monorepo workspace containing the core physics
 
 ## Workspace Packages
 
-- **`packages/glissade`**: The core library package compiled to ESM, CJS, and TypeScript typings.
+- **`packages/glissade`**: The core library package (published as **`glissix`** on npm), compiled to ESM, CJS, and TypeScript typings.
 - **`apps/web`**: A highly polished, interactive visual playground built with Vite and raw CSS to test physics properties.
 - **`apps/docs`**: A VitePress documentation portal detailing the mathematical model, API specifications, and presets.
 
@@ -52,7 +52,7 @@ All scripts can be run directly from the workspace root:
 | Command | Action | Description |
 | :--- | :--- | :--- |
 | `npm run build` | Build Workspace | Compiles the library and builds both static websites for production |
-| `npm run build:pkg` | Build Library | Compiles the core `glissade` library only (emits `dist/` folders) |
+| `npm run build:pkg` | Build Library | Compiles the core `glissix` library only (emits `dist/` folders) |
 
 ### Testing
 
@@ -64,10 +64,10 @@ All scripts can be run directly from the workspace root:
 
 ## Package Usage Quick Start
 
-Once the package is installed in your project (`npm install glissade`), initialize it as follows:
+Once the package is installed in your project (`npm install glissix`), initialize it as follows:
 
 ```typescript
-import { Glissade } from 'glissade';
+import { Glissade } from 'glissix';
 
 // 1. Instantiate with a starting coordinate (0, 0)
 const motion = new Glissade(0, 0);

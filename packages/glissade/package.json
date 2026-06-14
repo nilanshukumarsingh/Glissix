@@ -1,6 +1,6 @@
 {
-  "name": "glissade",
-  "version": "0.1.1",
+  "name": "glissix",
+  "version": "0.1.0",
   "description": "An inertia-driven physics engine for tactile UI motion.",
   "type": "module",
   "main": "./dist/index.cjs",

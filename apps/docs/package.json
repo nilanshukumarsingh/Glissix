@@ -9,7 +9,7 @@
     "preview": "vitepress preview"
   },
   "dependencies": {
-    "glissade": "file:../../packages/glissade"
+    "glissix": "file:../../packages/glissade"
   },
   "devDependencies": {
     "vitepress": "^1.6.3"
