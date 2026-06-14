@@ -115,6 +115,12 @@ To publish a new version of the package:
 
 ---
 
+## Creator
+
+Developed and maintained by **Nilanshu Kumar Singh**:
+- **LinkedIn**: [nilanshukumarsingh](https://www.linkedin.com/in/nilanshukumarsingh/)
+- **Twitter/X**: [@nilanshukumar81](https://x.com/nilanshukumar81)
+
 ## License
 
 MIT

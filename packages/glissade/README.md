@@ -169,6 +169,12 @@ Traditional transition tools require you to specify a preset curve (like ease-ou
 
 ---
 
+## ✦ Creator
+
+Developed and maintained by **Nilanshu Kumar Singh**:
+- **LinkedIn**: [nilanshukumarsingh](https://www.linkedin.com/in/nilanshukumarsingh/)
+- **Twitter/X**: [@nilanshukumar81](https://x.com/nilanshukumar81)
+
 ## ✦ License
 
 MIT
