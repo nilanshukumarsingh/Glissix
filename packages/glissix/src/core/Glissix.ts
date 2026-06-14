@@ -2,20 +2,20 @@ import {
   DEFAULT_CONFIG,
   MATERIALS,
   sanitizeConfig,
-  type GlissadeConfig,
-  type GlissadeMaterial,
-  type GlissadeState,
-  type GlissadeStep,
+  type GlissixConfig,
+  type GlissixMaterial,
+  type GlissixState,
+  type GlissixStep,
 } from './types'
 
-export class Glissade {
-  private state: GlissadeState
-  public config: GlissadeConfig
+export class Glissix {
+  private state: GlissixState
+  public config: GlissixConfig
 
   constructor(
     initialX: number,
     initialY: number,
-    config: Partial<GlissadeConfig> = {},
+    config: Partial<GlissixConfig> = {},
   ) {
     this.config = sanitizeConfig(config)
     this.state = {
@@ -33,11 +33,11 @@ export class Glissade {
     this.state.targetY = y
   }
 
-  setConfig(config: Partial<GlissadeConfig>): void {
+  setConfig(config: Partial<GlissixConfig>): void {
     this.config = sanitizeConfig(config, this.config)
   }
 
-  useMaterial(name: GlissadeMaterial): void {
+  useMaterial(name: GlissixMaterial): void {
     this.config = sanitizeConfig(MATERIALS[name], this.config)
   }
 
@@ -46,7 +46,7 @@ export class Glissade {
     this.state.vy += vy
   }
 
-  step(): GlissadeStep {
+  step(): GlissixStep {
     const ax = (this.state.targetX - this.state.x) * this.config.tension
     const ay = (this.state.targetY - this.state.y) * this.config.tension
 
@@ -76,7 +76,7 @@ export class Glissade {
     callback(next.x, Math.abs(next.vx))
   }
 
-  getState(): GlissadeState {
+  getState(): GlissixState {
     return { ...this.state }
   }
 
@@ -93,4 +93,4 @@ export class Glissade {
 }
 
 export { DEFAULT_CONFIG, MATERIALS, sanitizeConfig }
-export type { GlissadeConfig, GlissadeMaterial, GlissadeState, GlissadeStep }
+export type { GlissixConfig, GlissixMaterial, GlissixState, GlissixStep }

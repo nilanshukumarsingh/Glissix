@@ -2,7 +2,7 @@
 
 ## Nilanshu Kumar Singh
 
-Glissade is being shaped as a portfolio-grade motion tool by Nilanshu Kumar Singh, a full-stack developer focused on clean engineering, product feel, and practical frontend systems.
+Glissix is being shaped as a portfolio-grade motion tool by Nilanshu Kumar Singh, a full-stack developer focused on clean engineering, product feel, and practical frontend systems.
 
 ## Links
 
@@ -13,7 +13,7 @@ Glissade is being shaped as a portfolio-grade motion tool by Nilanshu Kumar Sing
 
 ## Intent behind the project
 
-The point of Glissade is not to clone an existing animation library. The point is to build a motion system with its own voice:
+The point of Glissix is not to clone an existing animation library. The point is to build a motion system with its own voice:
 
 - inertia-first instead of spring-first
 - tactile interface behavior instead of general-purpose animation marketing

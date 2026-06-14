@@ -1,16 +1,16 @@
 import { describe, expect, it } from 'vitest'
 
-import { DEFAULT_CONFIG, Glissade, MATERIALS } from '../src'
+import { DEFAULT_CONFIG, Glissix, MATERIALS } from '../src'
 
-describe('Glissade', () => {
+describe('Glissix', () => {
   it('uses default config values', () => {
-    const motion = new Glissade(0, 0)
+    const motion = new Glissix(0, 0)
 
     expect(motion.config).toEqual(DEFAULT_CONFIG)
   })
 
   it('merges partial config overrides', () => {
-    const motion = new Glissade(0, 0, { mass: 2.5 })
+    const motion = new Glissix(0, 0, { mass: 2.5 })
 
     expect(motion.config).toEqual({
       mass: 2.5,
@@ -20,7 +20,7 @@ describe('Glissade', () => {
   })
 
   it('updates the target state', () => {
-    const motion = new Glissade(10, 20)
+    const motion = new Glissix(10, 20)
 
     motion.setTarget(30, 40)
 
@@ -31,7 +31,7 @@ describe('Glissade', () => {
   })
 
   it('moves toward the target when stepped', () => {
-    const motion = new Glissade(0, 0)
+    const motion = new Glissix(0, 0)
     motion.setTarget(100, 0)
 
     const first = motion.step()
@@ -41,7 +41,7 @@ describe('Glissade', () => {
   })
 
   it('friction reduces carried velocity over time', () => {
-    const motion = new Glissade(0, 0, {
+    const motion = new Glissix(0, 0, {
       tension: 0.2,
       friction: 0.5,
     })
@@ -56,8 +56,8 @@ describe('Glissade', () => {
   })
 
   it('heavier mass accelerates more slowly', () => {
-    const light = new Glissade(0, 0, { mass: 1 })
-    const heavy = new Glissade(0, 0, { mass: 4 })
+    const light = new Glissix(0, 0, { mass: 1 })
+    const heavy = new Glissix(0, 0, { mass: 4 })
 
     light.setTarget(100, 0)
     heavy.setTarget(100, 0)
@@ -66,7 +66,7 @@ describe('Glissade', () => {
   })
 
   it('resets state predictably', () => {
-    const motion = new Glissade(0, 0)
+    const motion = new Glissix(0, 0)
 
     motion.setTarget(50, 25)
     motion.step()
@@ -83,7 +83,7 @@ describe('Glissade', () => {
   })
 
   it('clamps invalid config values', () => {
-    const motion = new Glissade(0, 0, {
+    const motion = new Glissix(0, 0, {
       mass: 0,
       tension: 999,
       friction: -5,
@@ -97,7 +97,7 @@ describe('Glissade', () => {
   })
 
   it('applies a named material preset', () => {
-    const motion = new Glissade(0, 0)
+    const motion = new Glissix(0, 0)
 
     motion.useMaterial('LEATHER')
 
@@ -105,7 +105,7 @@ describe('Glissade', () => {
   })
 
   it('injects velocity through impulses', () => {
-    const motion = new Glissade(0, 0)
+    const motion = new Glissix(0, 0)
 
     motion.applyImpulse(12, -4)
 
@@ -116,7 +116,7 @@ describe('Glissade', () => {
   })
 
   it('returns the current velocity magnitude', () => {
-    const motion = new Glissade(0, 0)
+    const motion = new Glissix(0, 0)
 
     motion.applyImpulse(3, 4)
 
@@ -124,7 +124,7 @@ describe('Glissade', () => {
   })
 
   it('updates scalar progress values for one-dimensional interactions', () => {
-    const motion = new Glissade(0, 0)
+    const motion = new Glissix(0, 0)
     let captured = { value: 0, velocity: 0 }
 
     motion.updateValue(1, (value, velocity) => {

@@ -5,7 +5,7 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   resolve: {
     alias: {
-      glissix: resolve(__dirname, '../../packages/glissade/src/index.ts'),
+      glissix: resolve(__dirname, '../../packages/glissix/src/index.ts'),
     },
   },
 })

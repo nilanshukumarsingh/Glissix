@@ -1,10 +1,10 @@
 import './style.css'
 
 import {
-  Glissade,
+  Glissix,
   MATERIALS,
-  type GlissadeConfig,
-  type GlissadeMaterial,
+  type GlissixConfig,
+  type GlissixMaterial,
 } from 'glissix'
 
 function getRequiredElement<T extends Element>(
@@ -63,7 +63,7 @@ app.innerHTML = `
         </ul>
         <div class="code-preview">
           <p class="code-label">Quick sample</p>
-          <pre><code>const motion = new Glissade(0, 0)
+          <pre><code>const motion = new Glissix(0, 0)
 motion.useMaterial('LEATHER')
 motion.applyImpulse(8, -4)
 motion.setTarget(pointerX, pointerY)
@@ -177,7 +177,7 @@ const { x, y } = motion.step()</code></pre>
           <div class="module-copy">
             <p class="panel-label">Module 03</p>
             <h4>Elastic Chain</h4>
-            <p>A chain of linked Glissade instances demonstrates how the same engine can drive compound motion systems.</p>
+            <p>A chain of linked Glissix instances demonstrates how the same engine can drive compound motion systems.</p>
           </div>
           <div id="chain-container" class="chain-container"></div>
         </section>
@@ -209,13 +209,13 @@ const drawer = getRequiredElement<HTMLElement>('#card-drawer')
 const toggleButton = getRequiredElement<HTMLButtonElement>('#toggle-btn')
 const chainContainer = getRequiredElement<HTMLElement>('#chain-container')
 
-const magneticCore = new Glissade(0, 0, MATERIALS.LEATHER)
-const drawerPhysics = new Glissade(0, 0, {
+const magneticCore = new Glissix(0, 0, MATERIALS.LEATHER)
+const drawerPhysics = new Glissix(0, 0, {
   mass: 1.5,
   tension: 0.1,
   friction: 0.82,
 })
-const chainPhysics = Array.from({ length: 8 }, (_, index) => new Glissade(0, 0, {
+const chainPhysics = Array.from({ length: 8 }, (_, index) => new Glissix(0, 0, {
   mass: 1 + index * 0.45,
   tension: 0.2,
   friction: 0.8,
@@ -237,7 +237,7 @@ const swarm = Array.from({ length: STRESS_COUNT }, (_, index) => {
 
   return {
     dot,
-    motion: new Glissade(0, 0, {
+    motion: new Glissix(0, 0, {
       mass: 0.45 + (index % 8) * 0.08,
       tension: 0.12 + (index % 5) * 0.01,
       friction: 0.82,
@@ -245,7 +245,7 @@ const swarm = Array.from({ length: STRESS_COUNT }, (_, index) => {
   }
 })
 
-let liveConfig: GlissadeConfig = { ...MATERIALS.LEATHER }
+let liveConfig: GlissixConfig = { ...MATERIALS.LEATHER }
 let magnetCenterX = 0
 let magnetCenterY = 0
 let chainCenterX = 0
@@ -315,7 +315,7 @@ function lerp(start: number, end: number, amount: number) {
   return start + (end - start) * amount
 }
 
-function setMaterial(name: GlissadeMaterial) {
+function setMaterial(name: GlissixMaterial) {
   liveConfig = { ...MATERIALS[name] }
   magneticCore.useMaterial(name)
   drawerPhysics.setConfig({
@@ -347,7 +347,7 @@ function syncControlVisuals() {
   xyDot.style.transform = `translate3d(${x - 11}px, ${y - 11}px, 0)`
 }
 
-function updateConfig(partial: Partial<GlissadeConfig>) {
+function updateConfig(partial: Partial<GlissixConfig>) {
   liveConfig = {
     ...liveConfig,
     ...partial,
@@ -651,7 +651,7 @@ materialsRoot.addEventListener('click', (event) => {
     return
   }
 
-  setMaterial(button.dataset.material as GlissadeMaterial)
+  setMaterial(button.dataset.material as GlissixMaterial)
 })
 
 toggleButton.addEventListener('click', () => {

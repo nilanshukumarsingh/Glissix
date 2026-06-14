@@ -1,6 +1,6 @@
 # Motion Model
 
-Glissade is tuned for interface inertia rather than generic spring branding.
+Glissix is tuned for interface inertia rather than generic spring branding.
 
 ## Frame update
 
@@ -56,7 +56,7 @@ Config values are clamped at runtime to keep motion stable:
 
 ## Material presets
 
-Glissade ships with named identities so you can start from feel first:
+Glissix ships with named identities so you can start from feel first:
 
 - `LEATHER`: heavy and controlled
 - `RUBBER`: light and snappy

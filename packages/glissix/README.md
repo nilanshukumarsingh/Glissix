@@ -4,7 +4,7 @@ An inertia-driven, spring-damper physics engine for tactile UI motion. Focuses o
 
 [![npm version](https://img.shields.io/npm/v/glissix.svg?style=flat-square)](https://www.npmjs.com/package/glissix)
 [![npm downloads](https://img.shields.io/npm/dm/glissix.svg?style=flat-square)](https://www.npmjs.com/package/glissix)
-[![license](https://img.shields.io/npm/l/glissix.svg?style=flat-square)](https://github.com/nilanshukumarsingh/Glissade)
+[![license](https://img.shields.io/npm/l/glissix.svg?style=flat-square)](https://github.com/nilanshukumarsingh/Glissix)
 
 ---
 
@@ -41,10 +41,10 @@ npm install glissix
 ### 1. Basic 2D Position Tracking (e.g. Card Drag & Flick)
 
 ```typescript
-import { Glissade } from 'glissix';
+import { Glissix } from 'glissix';
 
 // Instantiate with starting coordinates (0, 0)
-const tracker = new Glissade(0, 0);
+const tracker = new Glissix(0, 0);
 
 // Use a built-in tactile preset
 tracker.useMaterial('LEATHER');
@@ -79,9 +79,9 @@ animate();
 You can use the helper `updateValue()` to drive single variables like sheet positions, opacity, scale, or scroll offsets:
 
 ```typescript
-import { Glissade } from 'glissix';
+import { Glissix } from 'glissix';
 
-const opacityTracker = new Glissade(0, 0); // initial value 0
+const opacityTracker = new Glissix(0, 0); // initial value 0
 opacityTracker.useMaterial('RUBBER');
 
 function fadeOut() {
@@ -115,7 +115,7 @@ function fadeOut() {
 
 ### Constructor
 ```typescript
-const tracker = new Glissade(initialX: number, initialY: number, config?: Partial<GlissadeConfig>);
+const tracker = new Glissix(initialX: number, initialY: number, config?: Partial<GlissixConfig>);
 ```
 Creates a new motion controller.
 - `initialX`: Initial position along the X axis.
@@ -133,23 +133,23 @@ Sets the new destination coordinates.
 #### `applyImpulse(vx: number, vy: number): void`
 Injects an instantaneous impulse velocity (adds to current velocity). Perfect for throwing/flicking cards or lists.
 
-#### `step(): GlissadeStep`
+#### `step(): GlissixStep`
 Performs a single simulation step. Returns the current physics metrics:
 `{ x: number, y: number, vx: number, vy: number }`
 
 #### `updateValue(target: number, callback: (value: number, velocity: number) => void): void`
 Steps a single scalar value. Sets target-x to `target` and returns the output via the callback.
 
-#### `useMaterial(name: GlissadeMaterial): void`
+#### `useMaterial(name: GlissixMaterial): void`
 Loads a pre-tuned configuration (`'LEATHER' | 'RUBBER' | 'HONEY' | 'GHOST'`).
 
-#### `setConfig(config: Partial<GlissadeConfig>): void`
+#### `setConfig(config: Partial<GlissixConfig>): void`
 Modifies the active configuration fields on-the-fly.
 
 #### `getVelocity(): number`
 Returns the scalar magnitude of the current velocity vector (speed).
 
-#### `getState(): GlissadeState`
+#### `getState(): GlissixState`
 Returns the exact physics simulation state copy:
 `{ x, y, vx, vy, targetX, targetY }`
 

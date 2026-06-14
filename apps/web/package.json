@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "glissix": "file:../../packages/glissade"
+    "glissix": "file:../../packages/glissix"
   },
   "devDependencies": {
     "typescript": "~5.9.3",

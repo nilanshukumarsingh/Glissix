@@ -14,7 +14,7 @@
     "moduleDetection": "force",
     "baseUrl": ".",
     "paths": {
-      "glissix": ["../../packages/glissade/src/index.ts"]
+      "glissix": ["../../packages/glissix/src/index.ts"]
     },
     "noEmit": true,
 

@@ -1,6 +1,6 @@
-# Glissade API
+# Glissix API
 
-## `new Glissade(initialX, initialY, config?)`
+## `new Glissix(initialX, initialY, config?)`
 
 Creates an engine with an initial position and optional config overrides.
 
@@ -8,7 +8,7 @@ Creates an engine with an initial position and optional config overrides.
 
 - `initialX: number`
 - `initialY: number`
-- `config?: Partial<GlissadeConfig>`
+- `config?: Partial<GlissixConfig>`
 
 ## `setTarget(x, y)`
 
@@ -72,10 +72,10 @@ Returns the current speed magnitude as a single number.
 
 Advances a scalar interaction using the engine's `x` axis and returns both current progress and one-dimensional velocity.
 
-## `GlissadeConfig`
+## `GlissixConfig`
 
 ```ts
-interface GlissadeConfig {
+interface GlissixConfig {
   mass: number
   tension: number
   friction: number

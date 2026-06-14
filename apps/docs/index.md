@@ -2,7 +2,7 @@
 layout: home
 
 hero:
-  name: Glissade
+  name: Glissix
   text: Inertia-driven motion for tactile interfaces
   tagline: Build UI that feels grabbed, weighted, and released instead of simply tweened.
   actions:
@@ -11,7 +11,7 @@ hero:
       link: /guide/getting-started
     - theme: alt
       text: Read the API
-      link: /api/glissade
+      link: /api/glissix
     - theme: alt
       text: Motion Model
       link: /guide/motion-model
@@ -22,14 +22,14 @@ features:
   - title: Stable by default
     details: Runtime clamping prevents broken configs from sending motion into unstable ranges.
   - title: Rendering stays in your app
-    details: Glissade computes state only. You decide whether the result drives DOM, canvas, WebGL, or another renderer.
+    details: Glissix computes state only. You decide whether the result drives DOM, canvas, WebGL, or another renderer.
   - title: Built for tactile UI
     details: The target is interactive product motion such as cards, cursors, sheets, floating surfaces, and magnetic elements.
 ---
 
-## What Glissade is
+## What Glissix is
 
-Glissade is a focused motion primitive for interfaces that need weight and drag. It does not try to be a full animation framework. It gives you a compact state engine that can be stepped every frame and connected to any rendering layer.
+Glissix is a focused motion primitive for interfaces that need weight and drag. It does not try to be a full animation framework. It gives you a compact state engine that can be stepped every frame and connected to any rendering layer.
 
 ## Why the docs open separately in local development
 

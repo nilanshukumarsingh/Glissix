@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  title: 'Glissade',
+  title: 'Glissix',
   description: 'Inertia-driven motion for tactile interfaces.',
   head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }]],
   themeConfig: {
@@ -9,7 +9,7 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Guide', link: '/guide/getting-started' },
-      { text: 'API', link: '/api/glissade' },
+      { text: 'API', link: '/api/glissix' },
     ],
     sidebar: [
       {
@@ -22,7 +22,7 @@ export default defineConfig({
       },
       {
         text: 'Reference',
-        items: [{ text: 'Glissade API', link: '/api/glissade' }],
+        items: [{ text: 'Glissix API', link: '/api/glissix' }],
       },
     ],
     socialLinks: [
@@ -30,7 +30,7 @@ export default defineConfig({
       { icon: 'linkedin', link: 'https://www.linkedin.com/in/nilanshukumarsingh' },
     ],
     footer: {
-      message: 'Glissade is built as a tactile UI motion engine for modern interfaces.',
+      message: 'Glissix is built as a tactile UI motion engine for modern interfaces.',
       copyright: 'Built by Nilanshu Kumar Singh',
     },
   },
