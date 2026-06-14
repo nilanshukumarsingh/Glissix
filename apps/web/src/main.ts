@@ -274,6 +274,19 @@ function ensureAudioContext() {
   return audioContext
 }
 
+function initAudioOnGesture() {
+  const resume = () => {
+    ensureAudioContext()
+    if (audioContext && audioContext.state === 'suspended') {
+      audioContext.resume()
+    }
+    window.removeEventListener('pointerdown', resume)
+    window.removeEventListener('click', resume)
+  }
+  window.addEventListener('pointerdown', resume)
+  window.addEventListener('click', resume)
+}
+
 function playMechanicalClick() {
   const context = ensureAudioContext()
   const now = context.currentTime
@@ -705,4 +718,5 @@ setupPad()
 setMaterial('LEATHER')
 resizeLayouts(true)
 placeCursorBlob(magnetCenterX, magnetCenterY)
+initAudioOnGesture()
 requestAnimationFrame(animateFrame)

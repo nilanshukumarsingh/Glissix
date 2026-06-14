@@ -14,8 +14,35 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
+  "author": "Nilanshu Kumar Singh <nilanshukumarsingh2005@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nilanshukumarsingh/Glissade.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nilanshukumarsingh/Glissade/issues"
+  },
+  "homepage": "https://github.com/nilanshukumarsingh/Glissade#readme",
+  "keywords": [
+    "physics",
+    "physics-engine",
+    "animation",
+    "motion",
+    "tactile-ui",
+    "inertia",
+    "spring-physics",
+    "spring",
+    "ui-motion",
+    "inertia-driven",
+    "tactile"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "tsup": "^8.5.1",
     "typescript": "^6.0.2",

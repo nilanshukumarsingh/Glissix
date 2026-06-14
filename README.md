@@ -1,103 +1,120 @@
-# Glissade
+# Glissade Workspace
 
-Glissade is a small TypeScript physics engine for tactile UI motion. It focuses on inertia, weight, and friction so interface elements feel dragged, pulled, and released instead of simply animated from A to B.
+Glissade is a lightweight, high-performance TypeScript physics engine for tactile UI motion. It models inertia, mass, tension, and friction so that interface components feel dragged, pulled, and naturally released rather than following artificial cubic-bezier curves.
 
-## Features
+This repository is organized as a monorepo workspace containing the core physics engine library, interactive test suites, and documentation.
 
-- Material presets such as `LEATHER`, `RUBBER`, `HONEY`, and `GHOST`
-- Velocity injection with `applyImpulse()` for throw and flick interactions
-- Scalar animation helper with `updateValue()` for drawers, sheets, and toggles
-- Runtime-safe config clamping to keep motion stable
-- Zero runtime dependencies
+---
 
-## Workspace Layout
+## Workspace Packages
 
-```text
-glissade/
-|- package.json
-|- apps/
-|  |- docs/
-|  `- web/
-`- packages/
-   `- glissade/
+- **`packages/glissade`**: The core library package compiled to ESM, CJS, and TypeScript typings.
+- **`apps/web`**: A highly polished, interactive visual playground built with Vite and raw CSS to test physics properties.
+- **`apps/docs`**: A VitePress documentation portal detailing the mathematical model, API specifications, and presets.
+
+---
+
+## Interactive Playground Modules (`apps/web`)
+
+The web app includes four sandbox modules that let you audit, test, and tune the spring mathematics:
+
+1. **Magnetic Core (Stress Field)**: An interactive vector field displaying physical coordinates, force vectors, and instant feedback for presets like `LEATHER`, `RUBBER`, `HONEY`, and `GHOST`.
+2. **Signal Analyzer (Oscilloscope)**: Plots real-time kinetic wave graphs for displacement and velocity, tracking peak values and settling times.
+3. **Specimen Drawer (Kinetic Bottom Sheet)**: A bottom sheet demo implementing swipe-to-close gestures, velocity injection on release, and bouncy boundary limits.
+4. **Elastic Chain (Kinematics)**: A chain of connected spring masses displaying kinetic propagation and inertia transfer across connected elements.
+
+---
+
+## Installation & Setup
+
+Set up the workspace dependencies from the root directory:
+
+```bash
+# Install all dependencies across workspaces
+npm install
 ```
 
-## Install
+---
 
-From the repo root:
+## Scripts
 
-```powershell
-cmd /c npm.cmd install
-```
+All scripts can be run directly from the workspace root:
 
-If your PowerShell execution policy allows npm scripts, plain `npm install` also works.
+### Running Applications
 
-## Development
+| Command | Action | Description |
+| :--- | :--- | :--- |
+| `npm run dev:web` | Start Playground | Launches the interactive visual playground at `http://localhost:5173/` |
+| `npm run dev:docs` | Start Docs | Launches the VitePress documentation site |
 
-Run the demo site:
+### Building Packages
 
-```powershell
-cmd /c npm.cmd run dev:web
-```
+| Command | Action | Description |
+| :--- | :--- | :--- |
+| `npm run build` | Build Workspace | Compiles the library and builds both static websites for production |
+| `npm run build:pkg` | Build Library | Compiles the core `glissade` library only (emits `dist/` folders) |
 
-Run the docs site:
+### Testing
 
-```powershell
-cmd /c npm.cmd run dev:docs
-```
+| Command | Action | Description |
+| :--- | :--- | :--- |
+| `npm run test` | Run Test Suite | Executes the Vitest unit tests for the core physics engine |
 
-Build the package only:
+---
 
-```powershell
-cmd /c npm.cmd run build:pkg
-```
+## Package Usage Quick Start
 
-Build everything:
+Once the package is installed in your project (`npm install glissade`), initialize it as follows:
 
-```powershell
-cmd /c npm.cmd run build
-```
+```typescript
+import { Glissade } from 'glissade';
 
-Run tests:
+// 1. Instantiate with a starting coordinate (0, 0)
+const motion = new Glissade(0, 0);
 
-```powershell
-cmd /c npm.cmd run test
-```
+// 2. Select a pre-tuned tactile material preset
+motion.useMaterial('LEATHER');
 
-## Package Quick Start
+// 3. Move target position on user action (e.g. pointermove)
+motion.setTarget(150, 300);
 
-```ts
-import { Glissade } from 'glissade'
+// 4. Inject speed on flick/release (velocity-x: 20, velocity-y: -10)
+motion.applyImpulse(20, -10);
 
-const motion = new Glissade(0, 0)
+// 5. Update coordinates inside requestAnimationFrame loop
+function animate() {
+  const { x, y } = motion.step(); // Computes next frame coordinates
+  element.style.transform = `translate3d(${x}px, ${y}px, 0)`;
 
-motion.useMaterial('LEATHER')
-motion.applyImpulse(8, -4)
-motion.setTarget(240, 120)
-
-function frame() {
-  const { x, y } = motion.step()
-  element.style.transform = `translate3d(${x}px, ${y}px, 0)`
-  requestAnimationFrame(frame)
+  if (motion.getVelocity() > 0.001) {
+    requestAnimationFrame(animate);
+  }
 }
-
-frame()
+animate();
 ```
 
-## Testing Checklist
+---
 
-1. Install dependencies from the repo root with `cmd /c npm.cmd install`.
-2. Run `cmd /c npm.cmd run test` and confirm the Vitest suite passes.
-3. Run `cmd /c npm.cmd run build:pkg` and confirm the package emits `dist/`.
-4. Run `cmd /c npm.cmd run dev:web` and verify the Magnetic Core, Signal Analyzer, Specimen Drawer, and Elastic Chain demos.
-5. Run `cmd /c npm.cmd run dev:docs` and verify the docs pages load.
-6. Run `cmd /c npm.cmd pack --dry-run --workspace glissade` before publishing.
+## Publishing to NPM
 
-## Publish
+To publish a new version of the package:
 
-After tests and build pass:
+1. Build the library target:
+   ```bash
+   npm run build:pkg
+   ```
+2. Navigate to the package directory:
+   ```bash
+   cd packages/glissade
+   ```
+3. Run the publish command with public access:
+   ```bash
+   npm publish --access public
+   ```
+   *Note: If your account enforces Two-Factor Authentication (2FA), open the generated browser verification link and press **Enter** to finalize the upload.*
 
-```powershell
-cmd /c npm.cmd pack --dry-run --workspace glissade
-cmd /c npm.cmd publish --workspace glissade --access public
-```
+---
+
+## License
+
+MIT

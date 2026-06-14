@@ -49,6 +49,7 @@ input {
   background-size: 36px 36px;
   content: '';
   inset: 0;
+  -webkit-mask-image: radial-gradient(circle at center, black 42%, transparent 94%);
   mask-image: radial-gradient(circle at center, black 42%, transparent 94%);
   pointer-events: none;
   position: absolute;
@@ -209,6 +210,8 @@ input {
 
 .copy {
   align-self: start;
+  position: sticky;
+  top: 32px;
 }
 
 .copy h2 {
@@ -346,9 +349,9 @@ input {
 
 .y-axis {
   left: 12px;
-  top: 16px;
+  bottom: 24px;
   transform: rotate(-90deg);
-  transform-origin: left top;
+  transform-origin: left bottom;
 }
 
 .xy-dot {
@@ -674,3 +677,50 @@ input {
     height: 360px;
   }
 }
+
+/* Hover and Transition Effects */
+.links a,
+.secondary-link,
+.ghost-button,
+.deploy-button,
+.material-chip,
+.knob-container,
+.xy-pad,
+.maker-links a {
+  transition: all 0.2s ease;
+}
+
+.links a:hover,
+.secondary-link:hover,
+.maker-links a:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.ghost-button:hover,
+.deploy-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+}
+
+.material-chip:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.material-chip[data-active='true']:hover {
+  background: rgba(125, 211, 255, 0.2);
+  border-color: rgba(125, 211, 255, 0.6);
+}
+
+.knob-container:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.03);
+}
+
+.xy-pad:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
