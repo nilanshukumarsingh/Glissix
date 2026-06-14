@@ -8,7 +8,7 @@ This repository is organized as a monorepo workspace containing the core physics
 
 ## Workspace Packages
 
-- **`packages/glissade`**: The core library package (published as **`glissix`** on npm), compiled to ESM, CJS, and TypeScript typings.
+- **`packages/glissix`**: The core library package (published as **`glissix`** on npm), compiled to ESM, CJS, and TypeScript typings.
 - **`apps/web`**: A highly polished, interactive visual playground built with Vite and raw CSS to test physics properties.
 - **`apps/docs`**: A VitePress documentation portal detailing the mathematical model, API specifications, and presets.
 
@@ -67,10 +67,10 @@ All scripts can be run directly from the workspace root:
 Once the package is installed in your project (`npm install glissix`), initialize it as follows:
 
 ```typescript
-import { Glissade } from 'glissix';
+import { glissix } from 'glissix';
 
 // 1. Instantiate with a starting coordinate (0, 0)
-const motion = new Glissade(0, 0);
+const motion = new Glissix(0, 0);
 
 // 2. Select a pre-tuned tactile material preset
 motion.useMaterial('LEATHER');
@@ -105,7 +105,7 @@ To publish a new version of the package:
    ```
 2. Navigate to the package directory:
    ```bash
-   cd packages/glissade
+   cd packages/Glissix
    ```
 3. Run the publish command with public access:
    ```bash

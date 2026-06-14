@@ -1,10 +1,10 @@
 # Getting Started
 
-Glissade is a small physics engine for UI motion where the feel matters as much as the destination.
+Glissix is a small physics engine for UI motion where the feel matters as much as the destination.
 
 ## Why it feels different
 
-Instead of making users guess abstract spring values and hope the result feels right, Glissade can start from a material identity and then refine from there.
+Instead of making users guess abstract spring values and hope the result feels right, Glissix can start from a material identity and then refine from there.
 
 Available material presets:
 
@@ -21,7 +21,7 @@ npm install glissix
 
 ## Mental model
 
-You create one `Glissade` instance for one moving thing. Each frame:
+You create one `Glissix` instance for one moving thing. Each frame:
 
 1. Send it a target with `setTarget(x, y)`.
 2. Advance the simulation with `step()`.
@@ -32,11 +32,11 @@ The engine does not touch the DOM for you. That separation keeps it framework-ag
 ## Quick start
 
 ```ts
-import { Glissade } from 'glissix'
+import { Glissix } from 'glissix'
 
 const card = document.querySelector('.card') as HTMLElement
 
-const motion = new Glissade(0, 0)
+const motion = new Glissix(0, 0)
 motion.useMaterial('LEATHER')
 
 window.addEventListener('pointermove', (event) => {
@@ -52,7 +52,7 @@ function tick() {
 tick()
 ```
 
-Glissade only computes state. Your app decides how to render that state.
+Glissix only computes state. Your app decides how to render that state.
 
 ## Throwing and impulses
 
@@ -67,7 +67,7 @@ motion.applyImpulse(12, -4)
 For one-dimensional UI like drawers and sheets, use `updateValue()`:
 
 ```ts
-const drawer = new Glissade(0, 0)
+const drawer = new Glissix(0, 0)
 
 function frame() {
   drawer.updateValue(isOpen ? 1 : 0, (progress, velocity) => {

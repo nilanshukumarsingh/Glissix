@@ -21,12 +21,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nilanshukumarsingh/Glissade.git"
+    "url": "git+https://github.com/nilanshukumarsingh/Glissix.git"
   },
   "bugs": {
-    "url": "https://github.com/nilanshukumarsingh/Glissade/issues"
+    "url": "https://github.com/nilanshukumarsingh/Glissix/issues"
   },
-  "homepage": "https://github.com/nilanshukumarsingh/Glissade#readme",
+  "homepage": "https://github.com/nilanshukumarsingh/Glissix#readme",
   "keywords": [
     "physics",
     "physics-engine",
