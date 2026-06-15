@@ -1,22 +1,41 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none">
+  <!-- Rounded dark background container -->
   <rect width="96" height="96" rx="24" fill="#07111D"/>
-  <rect x="8" y="8" width="80" height="80" rx="20" fill="url(#panel)" stroke="rgba(255,255,255,0.12)"/>
-  <path d="M64 28C56.5 22.667 48.167 21.333 39 24C29.833 26.667 24.667 32.833 23.5 42.5C22.333 52.167 25.833 60.167 34 66.5C42.167 72.833 51.167 74.333 61 71V59C54.667 62 48.75 61.792 43.25 58.375C37.75 54.958 35 50.208 35 44.125C35 38.042 37.75 33.292 43.25 29.875C48.75 26.458 54.667 26.25 61 29.25L64 28Z" fill="url(#strokeGlow)"/>
-  <path d="M70.5 32.5C63.5 27.167 55.667 24.5 47 24.5C37.167 24.5 29.792 27.667 24.875 34C19.958 40.333 18.875 47.792 21.625 56.375C24.375 64.958 29.917 71.042 38.25 74.625C46.583 78.208 55.5 77.667 65 73V61.75C58.833 65.417 52.5 66.333 46 64.5C39.5 62.667 35.333 58.625 33.5 52.375C31.667 46.125 32.708 40.792 36.625 36.375C40.542 31.958 45.833 29.75 52.5 29.75C58 29.75 63.333 31.417 68.5 34.75L70.5 32.5Z" stroke="#BCE3FF" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="67" cy="34" r="7" fill="#8DD3FF"/>
-  <circle cx="67" cy="34" r="14" fill="url(#orbGlow)" opacity="0.45"/>
+  
+  <!-- Main card with background gradient and border -->
+  <rect x="8" y="8" width="80" height="80" rx="20" fill="url(#panel)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  
+  <!-- Subtle top-right backdrop glow -->
+  <circle cx="62.4" cy="35.2" r="27.2" fill="url(#bgGlow)"/>
+
+  <!-- Brand logo elements scaled and centered -->
+  <g transform="translate(16, 16) scale(1.6)">
+    <!-- Path track representing the physical motion curve -->
+    <path d="M30 10 C22 2, 10 6, 8 18 C6 30, 18 34, 28 30 C34 27, 34 20, 28 18 L18 18" stroke="url(#trackGrad)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Central node of the pointer -->
+    <circle cx="28" cy="18" r="4.5" fill="#8DD3FF"/>
+    <!-- Outer halo glow around the node -->
+    <circle cx="28" cy="18" r="8" fill="#8DD3FF" opacity="0.3"/>
+  </g>
+
   <defs>
+    <!-- Background linear gradient for the card -->
     <linearGradient id="panel" x1="14" y1="10" x2="82" y2="86" gradientUnits="userSpaceOnUse">
       <stop stop-color="#0B1726"/>
       <stop offset="1" stop-color="#0A0F17"/>
     </linearGradient>
-    <linearGradient id="strokeGlow" x1="24" y1="24" x2="66" y2="71" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#133251"/>
-      <stop offset="1" stop-color="#0C1A2A"/>
-    </linearGradient>
-    <radialGradient id="orbGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(67 34) rotate(90) scale(20)">
-      <stop stop-color="#7CC7FF"/>
-      <stop offset="1" stop-color="#7CC7FF" stop-opacity="0"/>
+    
+    <!-- Top-right backdrop radial glow -->
+    <radialGradient id="bgGlow" cx="62.4" cy="35.2" r="27.2" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8AD1FF" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#8AD1FF" stop-opacity="0"/>
     </radialGradient>
+    
+    <!-- Vibrant motion path gradient -->
+    <linearGradient id="trackGrad" x1="8" y1="8" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7DD3FF"/>
+      <stop offset="60%" stop-color="#46A3FF"/>
+      <stop offset="100%" stop-color="#8B5CF6"/>
+    </linearGradient>
   </defs>
 </svg>
