@@ -44,4 +44,4 @@ Traditional transition tools require you to specify a preset easing curve and a 
 
 ## Explore the Sandbox
 
-Visit the interactive visual playground at [http://localhost:5173/](http://localhost:5173/) to inspect the vector field, tune the mass knob, try the bottom drawer, and visualize the motion waveforms in real time.
+Visit the interactive visual playground at [https://glissix.vercel.app/](https://glissix.vercel.app/) to inspect the vector field, tune the mass knob, try the bottom drawer, and visualize the motion waveforms in real time.
