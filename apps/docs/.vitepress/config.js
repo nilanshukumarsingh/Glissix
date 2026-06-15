@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
+  base: '/docs/',
   title: 'Glissix',
   description: 'Inertia-driven motion for tactile interfaces.',
   head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }]],
