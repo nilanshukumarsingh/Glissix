@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "type": "module",
   "dependencies": {
-    "glissix": "file:../packages/glissix/glissix-0.1.0.tgz"
+    "glissix": "file:../../packages/glissix/glissix-0.1.0.tgz"
   }
 }

@@ -206,6 +206,42 @@ Runs the Vitest test suite for the core library:
 npm run test
 ```
 
+
+---
+
+## ✦ Production Deployment & Routing (Vercel Single-Domain)
+
+For production, each monorepo package is deployed as an independent Vercel project and unified under a single root domain via **Vercel Rewrites**:
+
+1. **`apps/web`** (Main domain, e.g. `glissix.vercel.app`)
+2. **`apps/docs`** (Served at `/docs` subpath via rewrite pointing to `glissix-docs.vercel.app`)
+3. **`apps/verify-glissix`** (Served at `/verify` subpath via rewrite pointing to `glissix-verify.vercel.app`)
+
+The proxying and path rewriting are handled automatically by [apps/web/vercel.json](file:///c:/Users/asus/Desktop/glissade/apps/web/vercel.json):
+
+```json
+{
+  "rewrites": [
+    {
+      "source": "/docs",
+      "destination": "https://glissix-docs.vercel.app"
+    },
+    {
+      "source": "/docs/:path*",
+      "destination": "https://glissix-docs.vercel.app/:path*"
+    },
+    {
+      "source": "/verify",
+      "destination": "https://glissix-verify.vercel.app"
+    },
+    {
+      "source": "/verify/:path*",
+      "destination": "https://glissix-verify.vercel.app/:path*"
+    }
+  ]
+}
+```
+
 ---
 
 ## ✦ Creator

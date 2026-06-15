@@ -1,0 +1,20 @@
+{
+  "rewrites": [
+    {
+      "source": "/docs",
+      "destination": "https://glissix-docs.vercel.app"
+    },
+    {
+      "source": "/docs/:path*",
+      "destination": "https://glissix-docs.vercel.app/:path*"
+    },
+    {
+      "source": "/verify",
+      "destination": "https://glissix-verify.vercel.app"
+    },
+    {
+      "source": "/verify/:path*",
+      "destination": "https://glissix-verify.vercel.app/:path*"
+    }
+  ]
+}
