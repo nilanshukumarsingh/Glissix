@@ -2,7 +2,13 @@
   "name": "verify-glissix",
   "version": "1.0.0",
   "type": "module",
+  "scripts": {
+    "build": "vite build"
+  },
   "dependencies": {
     "glissix": "file:../../packages/glissix/glissix-0.1.0.tgz"
+  },
+  "devDependencies": {
+    "vite": "^5.4.15"
   }
 }
