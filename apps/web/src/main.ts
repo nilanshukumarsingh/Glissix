@@ -871,7 +871,13 @@ function placeCursorBlob(x: number, y: number) {
 function updateHeroPhysics() {
   if (!heroIsDragging) {
     const { x, y } = heroPhysics.step()
-    heroDraggableCard.style.transform = `translate3d(${x - 55}px, ${y - 75}px, 0)`
+    const rect = heroDemoChamber.getBoundingClientRect()
+    const clampedX = clamp(x, 55, rect.width - 55)
+    const clampedY = clamp(y, 75, rect.height - 75)
+    if (clampedX !== x || clampedY !== y) {
+      heroPhysics.reset(clampedX, clampedY)
+    }
+    heroDraggableCard.style.transform = `translate3d(${clampedX - 55}px, ${clampedY - 75}px, 0)`
   }
 }
 
@@ -1168,6 +1174,10 @@ modalDraggableCard.addEventListener('pointermove', (e) => {
   modalPrevPointerX = e.clientX
   modalPrevPointerY = e.clientY
 
+  const rect = modalDemoArea.getBoundingClientRect()
+  modalPointerX = clamp(modalPointerX, 75, rect.width - 75)
+  modalPointerY = clamp(modalPointerY, 105, rect.height - 105)
+
   modalPhysics.reset(modalPointerX, modalPointerY)
   modalDraggableCard.style.transform = `translate3d(${modalPointerX - 75}px, ${modalPointerY - 105}px, 0)`
 })
@@ -1179,6 +1189,12 @@ modalDraggableCard.addEventListener('pointerup', (e) => {
 
   modalPhysics.setTarget(modalCenterX, modalCenterY)
   modalPhysics.applyImpulse(modalVelocityX * 1.5, modalVelocityY * 1.5)
+})
+
+modalDraggableCard.addEventListener('pointercancel', () => {
+  if (!modalIsDragging) return
+  modalIsDragging = false
+  modalPhysics.setTarget(modalCenterX, modalCenterY)
 })
 
 // Modal Open/Close
@@ -1204,7 +1220,13 @@ modalOverlay.addEventListener('click', (e) => {
 function updateModalPhysics() {
   if (modalOverlay.classList.contains('active') && !modalIsDragging) {
     const { x, y } = modalPhysics.step()
-    modalDraggableCard.style.transform = `translate3d(${x - 75}px, ${y - 105}px, 0)`
+    const rect = modalDemoArea.getBoundingClientRect()
+    const clampedX = clamp(x, 75, rect.width - 75)
+    const clampedY = clamp(y, 105, rect.height - 105)
+    if (clampedX !== x || clampedY !== y) {
+      modalPhysics.reset(clampedX, clampedY)
+    }
+    modalDraggableCard.style.transform = `translate3d(${clampedX - 75}px, ${clampedY - 105}px, 0)`
   }
 }
 
