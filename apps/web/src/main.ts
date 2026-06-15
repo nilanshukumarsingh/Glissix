@@ -66,6 +66,7 @@ app.innerHTML = `
           </svg>
         </a>
         <a href="/docs/">Docs</a>
+        <button id="open-npm-demo" class="demo-trigger-btn" type="button">NPM Demo</button>
         <span class="version">v0.1.0</span>
       </nav>
     </header>
@@ -84,11 +85,26 @@ app.innerHTML = `
           <a class="secondary-link" href="/docs/guide/getting-started">Read the guide</a>
         </div>
       </div>
-      <ul class="notes">
-        <li>Named material presets instead of anonymous tuning numbers.</li>
-        <li>Impulse injection, scalar progress helpers, and zero runtime dependencies.</li>
-        <li>Built to power magnetic UI, kinetic drawers, and chained motion systems.</li>
-      </ul>
+      <div class="hero-demo-card">
+        <div class="hero-demo-chamber" id="hero-demo-chamber">
+          <div class="hero-demo-label">Tactile Inertia Chamber</div>
+          <div class="hero-demo-crosshair" id="hero-demo-crosshair"></div>
+          <div class="hero-draggable-card" id="hero-draggable-card">
+            <div class="card-glow"></div>
+            <div class="card-content">
+              <span class="card-tag">Glissix NPM</span>
+              <h5>Inertia Card</h5>
+              <p>Drag & flick me</p>
+            </div>
+          </div>
+        </div>
+        <div class="hero-demo-controls">
+          <button class="hero-preset-btn active" data-hero-material="LEATHER" type="button">LEATHER</button>
+          <button class="hero-preset-btn" data-hero-material="RUBBER" type="button">RUBBER</button>
+          <button class="hero-preset-btn" data-hero-material="HONEY" type="button">HONEY</button>
+          <button class="hero-preset-btn" data-hero-material="GHOST" type="button">GHOST</button>
+        </div>
+      </div>
     </section>
 
     <main class="layout">
@@ -241,6 +257,73 @@ const { x, y } = motion.step()</code></pre>
       </section>
     </main>
   </div>
+
+  <!-- Modal Sandbox overlay -->
+  <div id="npm-modal" class="modal-overlay">
+    <div class="modal-card">
+      <button id="close-npm-modal" class="modal-close-btn" type="button">&times;</button>
+      <div class="modal-container">
+        <div class="modal-left">
+          <div class="modal-demo-area" id="modal-demo-area">
+            <div class="modal-playground-label">Interactive Specimen Chamber</div>
+            <div class="modal-target-crosshair" id="modal-crosshair"></div>
+            <div class="modal-draggable-card" id="modal-draggable-card">
+              <h3>Glissix Card</h3>
+              <p>Drag me and flick me. Tune parameters or inject impulses on the right to see the math resolve.</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-right">
+          <div class="modal-info-section">
+            <h2>NPM Package Sandbox</h2>
+            <p>This sandbox runs the <code>glissix</code> physical model with configurable variables and impulse inputs.</p>
+          </div>
+          <div class="modal-preset-selector">
+            <div class="modal-card-title">Select Physical Material</div>
+            <div class="modal-presets-grid">
+              <button class="modal-preset-btn active" data-modal-material="LEATHER" type="button">LEATHER</button>
+              <button class="modal-preset-btn" data-modal-material="RUBBER" type="button">RUBBER</button>
+              <button class="modal-preset-btn" data-modal-material="HONEY" type="button">HONEY</button>
+              <button class="modal-preset-btn" data-modal-material="GHOST" type="button">GHOST</button>
+            </div>
+          </div>
+          <div class="modal-tuner-card">
+            <div class="modal-card-title">Live Parameter Tuner</div>
+            <div class="modal-tuner-row">
+              <div class="modal-tuner-header">
+                <span>Inertial Mass</span>
+                <span class="modal-tuner-val" id="modal-val-mass">2.0</span>
+              </div>
+              <input type="range" min="0.1" max="10.0" step="0.1" value="2.0" class="modal-tuner-slider" id="modal-slider-mass">
+            </div>
+            <div class="modal-tuner-row">
+              <div class="modal-tuner-header">
+                <span>Spring Tension</span>
+                <span class="modal-tuner-val" id="modal-val-tension">0.10</span>
+              </div>
+              <input type="range" min="0.001" max="1.000" step="0.005" value="0.100" class="modal-tuner-slider" id="modal-slider-tension">
+            </div>
+            <div class="modal-tuner-row">
+              <div class="modal-tuner-header">
+                <span>Frictional Damping</span>
+                <span class="modal-tuner-val" id="modal-val-friction">0.85</span>
+              </div>
+              <input type="range" min="0.01" max="0.99" step="0.01" value="0.85" class="modal-tuner-slider" id="modal-slider-friction">
+            </div>
+          </div>
+          <div class="modal-impulse-card">
+            <div class="modal-card-title">Inject Impulse (applyImpulse)</div>
+            <div class="modal-impulse-grid">
+              <button class="modal-impulse-btn" id="modal-btn-flick-left" type="button">Flick Left</button>
+              <button class="modal-impulse-btn" id="modal-btn-flick-right" type="button">Flick Right</button>
+              <button class="modal-impulse-btn" id="modal-btn-flick-up" type="button">Flick Up</button>
+              <button class="modal-impulse-btn" id="modal-btn-flick-down" type="button">Flick Down</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 `
 
 const title = getRequiredElement<HTMLElement>('.kinetic-text')
@@ -265,6 +348,10 @@ const fpsCounter = getRequiredElement<HTMLElement>('#fps-counter')
 const drawer = getRequiredElement<HTMLElement>('#card-drawer')
 const toggleButton = getRequiredElement<HTMLButtonElement>('#toggle-btn')
 const chainContainer = getRequiredElement<HTMLElement>('#chain-container')
+
+const heroDraggableCard = getRequiredElement<HTMLElement>('#hero-draggable-card')
+const heroDemoChamber = getRequiredElement<HTMLElement>('#hero-demo-chamber')
+const heroDemoCrosshair = getRequiredElement<HTMLElement>('#hero-demo-crosshair')
 
 const magneticCore = new Glissix(0, 0, MATERIALS.LEATHER)
 const drawerPhysics = new Glissix(0, 0, {
@@ -320,6 +407,30 @@ let drawerSettled = true
 let previousFrameTime = performance.now()
 let fpsWindow = performance.now()
 let fpsFrames = 0
+
+// Hero card physics setup
+const heroPhysics = new Glissix(0, 0)
+heroPhysics.useMaterial('LEATHER')
+
+let heroCenterX = 0
+let heroCenterY = 0
+let heroIsDragging = false
+let heroDragStartX = 0
+let heroDragStartY = 0
+let heroPointerX = 0
+let heroPointerY = 0
+let heroPrevPointerX = 0
+let heroPrevPointerY = 0
+let heroVelocityX = 0
+let heroVelocityY = 0
+
+function updateHeroCenters() {
+  const rect = heroDemoChamber.getBoundingClientRect()
+  heroCenterX = rect.width / 2
+  heroCenterY = rect.height / 2
+  heroDemoCrosshair.style.left = `${heroCenterX - 7}px`
+  heroDemoCrosshair.style.top = `${heroCenterY - 7}px`
+}
 const oscHistory: number[] = []
 let audioContext: AudioContext | null = null
 
@@ -535,6 +646,14 @@ function resizeLayouts(reset = false) {
       magnetCenterY + Math.sin(angle) * radius,
     )
   })
+
+  updateHeroCenters()
+  if (reset) {
+    heroPhysics.reset(heroCenterX, heroCenterY)
+    heroDraggableCard.style.transform = `translate3d(${heroCenterX - 55}px, ${heroCenterY - 75}px, 0)`
+  } else if (!heroIsDragging) {
+    heroPhysics.setTarget(heroCenterX, heroCenterY)
+  }
 }
 
 function updateOscilloscope(velocity: number) {
@@ -749,6 +868,13 @@ function placeCursorBlob(x: number, y: number) {
   field.style.setProperty('--y', `${y}px`)
 }
 
+function updateHeroPhysics() {
+  if (!heroIsDragging) {
+    const { x, y } = heroPhysics.step()
+    heroDraggableCard.style.transform = `translate3d(${x - 55}px, ${y - 75}px, 0)`
+  }
+}
+
 function animateFrame(now: number) {
   const delta = now - previousFrameTime
   previousFrameTime = now
@@ -758,6 +884,8 @@ function animateFrame(now: number) {
   animateSwarm(now)
   animateDrawer()
   animateChain()
+  updateModalPhysics()
+  updateHeroPhysics()
 
   if (!magnetActive) {
     const idleX = magnetCenterX + Math.sin(now / 900) * 24
@@ -853,6 +981,231 @@ const resizeObserver = new ResizeObserver(() => {
 
 resizeObserver.observe(magnetZone)
 resizeObserver.observe(chainContainer)
+resizeObserver.observe(heroDemoChamber)
+
+// --- Hero Demo Controller Event Listeners ---
+const heroDemoControls = getRequiredElement<HTMLElement>('.hero-demo-controls')
+heroDemoControls.addEventListener('click', (e) => {
+  const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.hero-preset-btn')
+  if (!btn?.dataset.heroMaterial) return
+
+  heroDemoControls.querySelectorAll('.hero-preset-btn').forEach(b => b.classList.remove('active'))
+  btn.classList.add('active')
+
+  const material = btn.dataset.heroMaterial as GlissixMaterial
+  heroPhysics.useMaterial(material)
+})
+
+heroDraggableCard.addEventListener('pointerdown', (e) => {
+  heroIsDragging = true
+  heroDraggableCard.setPointerCapture(e.pointerId)
+
+  const state = heroPhysics.getState()
+  heroDragStartX = e.clientX - state.x
+  heroDragStartY = e.clientY - state.y
+
+  heroPrevPointerX = e.clientX
+  heroPrevPointerY = e.clientY
+  heroVelocityX = 0
+  heroVelocityY = 0
+
+  const rect = heroDraggableCard.getBoundingClientRect()
+  heroDraggableCard.style.setProperty('--glow-x', `${((e.clientX - rect.left) / rect.width) * 100}%`)
+  heroDraggableCard.style.setProperty('--glow-y', `${((e.clientY - rect.top) / rect.height) * 100}%`)
+})
+
+heroDraggableCard.addEventListener('pointermove', (e) => {
+  if (!heroIsDragging) return
+
+  heroPointerX = e.clientX - heroDragStartX
+  heroPointerY = e.clientY - heroDragStartY
+
+  heroVelocityX = e.clientX - heroPrevPointerX
+  heroVelocityY = e.clientY - heroPrevPointerY
+  heroPrevPointerX = e.clientX
+  heroPrevPointerY = e.clientY
+
+  const rect = heroDemoChamber.getBoundingClientRect()
+  heroPointerX = clamp(heroPointerX, 55, rect.width - 55)
+  heroPointerY = clamp(heroPointerY, 75, rect.height - 75)
+
+  heroPhysics.reset(heroPointerX, heroPointerY)
+  heroDraggableCard.style.transform = `translate3d(${heroPointerX - 55}px, ${heroPointerY - 75}px, 0)`
+
+  const cardRect = heroDraggableCard.getBoundingClientRect()
+  heroDraggableCard.style.setProperty('--glow-x', `${((e.clientX - cardRect.left) / cardRect.width) * 100}%`)
+  heroDraggableCard.style.setProperty('--glow-y', `${((e.clientY - cardRect.top) / cardRect.height) * 100}%`)
+})
+
+heroDraggableCard.addEventListener('pointerup', (e) => {
+  if (!heroIsDragging) return
+  heroIsDragging = false
+  heroDraggableCard.releasePointerCapture(e.pointerId)
+
+  heroPhysics.setTarget(heroCenterX, heroCenterY)
+  heroPhysics.applyImpulse(heroVelocityX * 1.5, heroVelocityY * 1.5)
+})
+
+heroDraggableCard.addEventListener('pointercancel', () => {
+  if (!heroIsDragging) return
+  heroIsDragging = false
+  heroPhysics.setTarget(heroCenterX, heroCenterY)
+})
 
 initAudioOnGesture()
+
+// --- Modal Sandbox Controller Logic ---
+const openModalBtn = getRequiredElement<HTMLButtonElement>('#open-npm-demo')
+const closeModalBtn = getRequiredElement<HTMLButtonElement>('#close-npm-modal')
+const modalOverlay = getRequiredElement<HTMLElement>('#npm-modal')
+const modalDraggableCard = getRequiredElement<HTMLElement>('#modal-draggable-card')
+const modalDemoArea = getRequiredElement<HTMLElement>('#modal-demo-area')
+const modalCrosshair = getRequiredElement<HTMLElement>('#modal-crosshair')
+
+const modalSliderMass = getRequiredElement<HTMLInputElement>('#modal-slider-mass')
+const modalSliderTension = getRequiredElement<HTMLInputElement>('#modal-slider-tension')
+const modalSliderFriction = getRequiredElement<HTMLInputElement>('#modal-slider-friction')
+
+const modalValMass = getRequiredElement<HTMLElement>('#modal-val-mass')
+const modalValTension = getRequiredElement<HTMLElement>('#modal-val-tension')
+const modalValFriction = getRequiredElement<HTMLElement>('#modal-val-friction')
+
+let modalCenterX = 0
+let modalCenterY = 0
+let modalIsDragging = false
+let modalDragStartX = 0
+let modalDragStartY = 0
+let modalPointerX = 0
+let modalPointerY = 0
+let modalPrevPointerX = 0
+let modalPrevPointerY = 0
+let modalVelocityX = 0
+let modalVelocityY = 0
+
+function updateModalCenters() {
+  const rect = modalDemoArea.getBoundingClientRect()
+  modalCenterX = rect.width / 2
+  modalCenterY = rect.height / 2
+  modalCrosshair.style.left = `${modalCenterX - 7}px`
+  modalCrosshair.style.top = `${modalCenterY - 7}px`
+}
+
+const modalPhysics = new Glissix(0, 0)
+modalPhysics.useMaterial('LEATHER')
+
+function syncModalSliders(mass: number, tension: number, friction: number) {
+  modalSliderMass.value = mass.toString()
+  modalSliderTension.value = tension.toString()
+  modalSliderFriction.value = friction.toString()
+
+  modalValMass.textContent = mass.toFixed(1)
+  modalValTension.textContent = tension.toFixed(3)
+  modalValFriction.textContent = friction.toFixed(2)
+}
+
+// Preset Handlers
+modalOverlay.addEventListener('click', (e) => {
+  const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.modal-preset-btn')
+  if (!btn?.dataset.modalMaterial) return
+
+  modalOverlay.querySelectorAll('.modal-preset-btn').forEach(b => b.classList.remove('active'))
+  btn.classList.add('active')
+
+  const material = btn.dataset.modalMaterial as GlissixMaterial
+  modalPhysics.useMaterial(material)
+
+  const config = MATERIALS[material]
+  syncModalSliders(config.mass, config.tension, config.friction)
+})
+
+function updateFromModalSliders() {
+  const mass = parseFloat(modalSliderMass.value)
+  const tension = parseFloat(modalSliderTension.value)
+  const friction = parseFloat(modalSliderFriction.value)
+
+  modalPhysics.setConfig({ mass, tension, friction })
+
+  modalValMass.textContent = mass.toFixed(1)
+  modalValTension.textContent = tension.toFixed(3)
+  modalValFriction.textContent = friction.toFixed(2)
+
+  modalOverlay.querySelectorAll('.modal-preset-btn').forEach(b => b.classList.remove('active'))
+}
+
+modalSliderMass.addEventListener('input', updateFromModalSliders)
+modalSliderTension.addEventListener('input', updateFromModalSliders)
+modalSliderFriction.addEventListener('input', updateFromModalSliders)
+
+// Impulse buttons
+modalOverlay.querySelector('#modal-btn-flick-left')?.addEventListener('click', () => modalPhysics.applyImpulse(-45, 0))
+modalOverlay.querySelector('#modal-btn-flick-right')?.addEventListener('click', () => modalPhysics.applyImpulse(45, 0))
+modalOverlay.querySelector('#modal-btn-flick-up')?.addEventListener('click', () => modalPhysics.applyImpulse(0, -45))
+modalOverlay.querySelector('#modal-btn-flick-down')?.addEventListener('click', () => modalPhysics.applyImpulse(0, 45))
+
+// Drag Events
+modalDraggableCard.addEventListener('pointerdown', (e) => {
+  modalIsDragging = true
+  modalDraggableCard.setPointerCapture(e.pointerId)
+
+  const state = modalPhysics.getState()
+  modalDragStartX = e.clientX - state.x
+  modalDragStartY = e.clientY - state.y
+
+  modalPrevPointerX = e.clientX
+  modalPrevPointerY = e.clientY
+  modalVelocityX = 0
+  modalVelocityY = 0
+})
+
+modalDraggableCard.addEventListener('pointermove', (e) => {
+  if (!modalIsDragging) return
+
+  modalPointerX = e.clientX - modalDragStartX
+  modalPointerY = e.clientY - modalDragStartY
+
+  modalVelocityX = e.clientX - modalPrevPointerX
+  modalVelocityY = e.clientY - modalPrevPointerY
+  modalPrevPointerX = e.clientX
+  modalPrevPointerY = e.clientY
+
+  modalPhysics.reset(modalPointerX, modalPointerY)
+  modalDraggableCard.style.transform = `translate3d(${modalPointerX - 75}px, ${modalPointerY - 105}px, 0)`
+})
+
+modalDraggableCard.addEventListener('pointerup', (e) => {
+  if (!modalIsDragging) return
+  modalIsDragging = false
+  modalDraggableCard.releasePointerCapture(e.pointerId)
+
+  modalPhysics.setTarget(modalCenterX, modalCenterY)
+  modalPhysics.applyImpulse(modalVelocityX * 1.5, modalVelocityY * 1.5)
+})
+
+// Modal Open/Close
+openModalBtn.addEventListener('click', () => {
+  modalOverlay.classList.add('active')
+  updateModalCenters()
+  modalPhysics.reset(modalCenterX, modalCenterY)
+  modalDraggableCard.style.transform = `translate3d(${modalCenterX - 75}px, ${modalCenterY - 105}px, 0)`
+  syncModalSliders(MATERIALS.LEATHER.mass, MATERIALS.LEATHER.tension, MATERIALS.LEATHER.friction)
+})
+
+closeModalBtn.addEventListener('click', () => {
+  modalOverlay.classList.remove('active')
+})
+
+modalOverlay.addEventListener('click', (e) => {
+  if (e.target === modalOverlay) {
+    modalOverlay.classList.remove('active')
+  }
+})
+
+// Modal Physics Animation Loop inside the main loop
+function updateModalPhysics() {
+  if (modalOverlay.classList.contains('active') && !modalIsDragging) {
+    const { x, y } = modalPhysics.step()
+    modalDraggableCard.style.transform = `translate3d(${x - 75}px, ${y - 105}px, 0)`
+  }
+}
+
 requestAnimationFrame(animateFrame)
