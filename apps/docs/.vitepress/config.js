@@ -4,6 +4,7 @@ export default defineConfig({
   title: 'Glissix',
   description: 'Inertia-driven motion for tactile interfaces.',
   head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }]],
+  ignoreDeadLinks: true,
   themeConfig: {
     logo: '/favicon.svg',
     nav: [
@@ -27,7 +28,8 @@ export default defineConfig({
     ],
     socialLinks: [
       { icon: 'github', link: 'https://github.com/nilanshukumarsingh' },
-      { icon: 'linkedin', link: 'https://www.linkedin.com/in/nilanshukumarsingh' },
+      { icon: 'linkedin', link: 'https://www.linkedin.com/in/nilanshukumarsingh/' },
+      { icon: 'twitter', link: 'https://x.com/nilanshukumar81' },
     ],
     footer: {
       message: 'Glissix is built as a tactile UI motion engine for modern interfaces.',
