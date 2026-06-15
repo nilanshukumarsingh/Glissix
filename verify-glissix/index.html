@@ -11,12 +11,21 @@
       font-family: 'Segoe UI', system-ui, sans-serif;
       margin: 0;
       height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      cursor: crosshair;
+      position: relative;
+    }
+    
+    .centered-content {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
-      cursor: crosshair;
+      height: 100%;
+      width: 100%;
+      pointer-events: none;
+      user-select: none;
     }
     
     h1 {
@@ -54,14 +63,17 @@
       will-change: transform;
       top: 0;
       left: 0;
+      z-index: 10;
     }
   </style>
 </head>
 <body>
 
-  <h1>Glissix Visual Demo</h1>
-  <p>Move your mouse around the screen to see physical springs in action!</p>
-  <div class="instructions">The ball trails your cursor using Glissix's "LEATHER" mass & friction math.</div>
+  <div class="centered-content">
+    <h1>Glissix Visual Demo</h1>
+    <p>Move your mouse around the screen to see physical springs in action!</p>
+    <div class="instructions">The ball trails your cursor using Glissix's "LEATHER" mass & friction math.</div>
+  </div>
 
   <div id="ball" class="ball"></div>
 
