@@ -17,5 +17,4 @@ yarn-error.log*
 *.tsbuildinfo
 
 # Local test directories
-verify-glissix/
 scratch-test/

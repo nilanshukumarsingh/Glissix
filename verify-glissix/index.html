@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glissix NPM Package Demo</title>
+  <style>
+    :root {
+      --bg: #09090b;
+      --card-bg: #18181b;
+      --border: #27272a;
+      --text: #f4f4f5;
+      --text-muted: #a1a1aa;
+      --primary: #3b82f6;
+      --primary-glow: rgba(59, 130, 246, 0.15);
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: auto;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        grid-template-columns: 1fr;
+        overflow-y: auto;
+        max-height: 100vh;
+        padding-bottom: 4rem;
+      }
+    }
+
+    .demo-area {
+      background: radial-gradient(circle at center, #1e1b4b 0%, var(--card-bg) 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      height: 480px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .playground-label {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .draggable-card {
+      width: 160px;
+      height: 220px;
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      border-radius: 12px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1.5rem;
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+      position: absolute;
+      will-change: transform;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .draggable-card:active {
+      cursor: grabbing;
+    }
+
+    .draggable-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .draggable-card p {
+      font-size: 0.8rem;
+      opacity: 0.8;
+      line-height: 1.4;
+    }
+
+    .controls-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .info-section h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(to right, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .info-section p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .preset-selector {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+    }
+
+    .preset-selector h4 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .presets-grid {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .preset-btn {
+      background: #27272a;
+      border: 1px solid transparent;
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .preset-btn:hover {
+      background: #3f3f46;
+    }
+
+    .preset-btn.active {
+      background: var(--primary);
+      box-shadow: 0 0 12px var(--primary-glow);
+    }
+
+    .telemetry {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      font-family: monospace;
+      font-size: 0.8rem;
+    }
+
+    .telemetry-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.25rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .telemetry-row:last-child {
+      border-bottom: none;
+    }
+
+    .telemetry-val {
+      color: #34d399;
+    }
+
+    .code-box {
+      background: #09090b;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      overflow-x: auto;
+    }
+
+    .code-box pre {
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: #e2e8f0;
+      line-height: 1.5;
+    }
+
+    .target-crosshair {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .target-crosshair::before,
+    .target-crosshair::after {
+      content: '';
+      position: absolute;
+      background: rgba(255, 255, 255, 0.2);
+    }
+    .target-crosshair::before { width: 8px; height: 1px; }
+    .target-crosshair::after { width: 1px; height: 8px; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Physical Demo Area -->
+    <div>
+      <div class="demo-area" id="demo-area">
+        <div class="playground-label">Interactive Specimen Chamber</div>
+        <div class="target-crosshair" id="crosshair"></div>
+        <div class="draggable-card" id="card">
+          <h3>Glissix Card</h3>
+          <p>Drag me and flick me. Feel the inertia and the smooth spring back to center.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls & Info Area -->
+    <div class="controls-panel">
+      <div class="info-section">
+        <h1>NPM Package Usage</h1>
+        <p>
+          This demo shows how a developer imports the <code>glissix</code> npm library to drive realistic, tactile physical motion on a custom website instead of using static CSS transitions.
+        </p>
+      </div>
+
+      <div class="preset-selector">
+        <h4>Select Physical Material</h4>
+        <div class="presets-grid">
+          <button class="preset-btn active" data-material="LEATHER">LEATHER</button>
+          <button class="preset-btn" data-material="RUBBER">RUBBER</button>
+          <button class="preset-btn" data-material="HONEY">HONEY</button>
+          <button class="preset-btn" data-material="GHOST">GHOST</button>
+        </div>
+      </div>
+
+      <div class="telemetry">
+        <div class="telemetry-row">
+          <span>Target (Center)</span>
+          <span class="telemetry-val" id="tel-target">0, 0</span>
+        </div>
+        <div class="telemetry-row">
+          <span>Card Position</span>
+          <span class="telemetry-val" id="tel-pos">0, 0</span>
+        </div>
+        <div class="telemetry-row">
+          <span>Velocity (px/frame)</span>
+          <span class="telemetry-val" id="tel-vel">0.00, 0.00</span>
+        </div>
+        <div class="telemetry-row">
+          <span>Active Material</span>
+          <span class="telemetry-val" id="tel-material" style="color: #60a5fa;">LEATHER</span>
+        </div>
+      </div>
+
+      <div class="code-box">
+        <pre><code>// How you use it in your website:
+import { Glissix } from 'glissix';
+
+const motion = new Glissix(0, 0);
+motion.useMaterial('LEATHER');
+
+// Inside pointerup/drag end:
+motion.applyImpulse(vx, vy);
+motion.setTarget(0, 0);
+
+// In your animation loop:
+const { x, y } = motion.step();
+card.style.transform = 
+  `translate3d(${x}px, ${y}px, 0)`;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { Glissix } from 'glissix';
+
+    const card = document.getElementById('card');
+    const demoArea = document.getElementById('demo-area');
+    const crosshair = document.getElementById('crosshair');
+
+    // Telemetry DOM elements
+    const telTarget = document.getElementById('tel-target');
+    const telPos = document.getElementById('tel-pos');
+    const telVel = document.getElementById('tel-vel');
+    const telMaterial = document.getElementById('tel-material');
+
+    // Setup initial coordinates (centered in the demo-area)
+    let centerX = 0;
+    let centerY = 0;
+
+    function updateCenters() {
+      const rect = demoArea.getBoundingClientRect();
+      centerX = rect.width / 2;
+      centerY = rect.height / 2;
+      
+      // Position target crosshair at the center
+      crosshair.style.left = `${centerX - 8}px`;
+      crosshair.style.top = `${centerY - 8}px`;
+      telTarget.textContent = `${Math.round(centerX)}, ${Math.round(centerY)}`;
+    }
+    
+    // Initialize center bounds
+    updateCenters();
+    window.addEventListener('resize', updateCenters);
+
+    // Instantiate Glissix physics tracker centered
+    const physics = new Glissix(centerX, centerY);
+    physics.useMaterial('LEATHER');
+
+    // State variables
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let pointerX = centerX;
+    let pointerY = centerY;
+
+    // Track dragging velocity to inject impulse on release
+    let prevPointerX = 0;
+    let prevPointerY = 0;
+    let velocityX = 0;
+    let velocityY = 0;
+
+    // Position the card initially
+    card.style.left = '0px';
+    card.style.top = '0px';
+    card.style.transform = `translate3d(${centerX - 80}px, ${centerY - 110}px, 0)`;
+
+    // Handle Drag Pointer Events
+    card.addEventListener('pointerdown', (e) => {
+      isDragging = true;
+      card.setPointerCapture(e.pointerId);
+      
+      const state = physics.getState();
+      dragStartX = e.clientX - state.x;
+      dragStartY = e.clientY - state.y;
+      
+      prevPointerX = e.clientX;
+      prevPointerY = e.clientY;
+      velocityX = 0;
+      velocityY = 0;
+    });
+
+    card.addEventListener('pointermove', (e) => {
+      if (!isDragging) return;
+      
+      pointerX = e.clientX - dragStartX;
+      pointerY = e.clientY - dragStartY;
+
+      // Track instant drag velocity
+      velocityX = e.clientX - prevPointerX;
+      velocityY = e.clientY - prevPointerY;
+      prevPointerX = e.clientX;
+      prevPointerY = e.clientY;
+
+      // Immediately snap physics to current pointer drag location
+      physics.reset(pointerX, pointerY);
+      
+      // Apply position directly during drag
+      card.style.transform = `translate3d(${pointerX - 80}px, ${pointerY - 110}px, 0)`;
+      
+      telPos.textContent = `${Math.round(pointerX)}, ${Math.round(pointerY)}`;
+      telVel.textContent = `${velocityX.toFixed(2)}, ${velocityY.toFixed(2)}`;
+    });
+
+    card.addEventListener('pointerup', (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+      card.releasePointerCapture(e.pointerId);
+
+      // On release, set target back to center coordinates
+      physics.setTarget(centerX, centerY);
+
+      // Inject the drag velocity (impulse momentum) so it flicks realistically
+      physics.applyImpulse(velocityX * 1.5, velocityY * 1.5);
+    });
+
+    // Physics Update Loop
+    function animate() {
+      if (!isDragging) {
+        // Compute the next coordinate step based on spring tension and friction
+        const { x, y, vx, vy } = physics.step();
+        
+        // Apply computed position to card transform
+        card.style.transform = `translate3d(${x - 80}px, ${y - 110}px, 0)`;
+
+        // Update telemetry
+        telPos.textContent = `${Math.round(x)}, ${Math.round(y)}`;
+        telVel.textContent = `${vx.toFixed(2)}, ${vy.toFixed(2)}`;
+      }
+      
+      requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+
+    // Preset Chip Event Handlers
+    document.querySelectorAll('.preset-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        
+        const material = e.target.dataset.material;
+        physics.useMaterial(material);
+        telMaterial.textContent = material;
+      });
+    });
+  </script>
+</body>
+</html>
