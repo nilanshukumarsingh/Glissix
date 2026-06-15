@@ -14,9 +14,36 @@ This repository is organized as a monorepo workspace containing the core physics
 
 ---
 
+## How to Run the Workspace Applications
+
+To run the playground and documentation sites locally, follow these steps:
+
+### 1. Installation
+
+From the workspace root directory, install the dependencies for all packages:
+```bash
+npm install
+```
+
+### 2. Running the Visual Playground (Web App)
+
+To launch the interactive playground (runs on `http://localhost:5173/`):
+```bash
+npm run dev:web
+```
+
+### 3. Running the Documentation Site (Docs App)
+
+The "Docs" button on the visual playground links to `http://localhost:5174/`. To make this link work, you **must run the documentation server in a separate terminal window**:
+```bash
+npm run dev:docs
+```
+
+---
+
 ## Interactive Playground Modules (`apps/web`)
 
-The web app includes four sandbox modules that let you audit, test, and tune the spring mathematics:
+The web app includes sandbox modules that let you audit, test, and tune the spring mathematics:
 
 1. **Magnetic Core (Stress Field)**: An interactive vector field displaying physical coordinates, force vectors, and instant feedback for presets like `LEATHER`, `RUBBER`, `HONEY`, and `GHOST`.
 2. **Signal Analyzer (Oscilloscope)**: Plots real-time kinetic wave graphs for displacement and velocity, tracking peak values and settling times.
@@ -25,18 +52,7 @@ The web app includes four sandbox modules that let you audit, test, and tune the
 
 ---
 
-## Installation & Setup
-
-Set up the workspace dependencies from the root directory:
-
-```bash
-# Install all dependencies across workspaces
-npm install
-```
-
----
-
-## Scripts
+## Available Scripts
 
 All scripts can be run directly from the workspace root:
 
@@ -45,7 +61,7 @@ All scripts can be run directly from the workspace root:
 | Command | Action | Description |
 | :--- | :--- | :--- |
 | `npm run dev:web` | Start Playground | Launches the interactive visual playground at `http://localhost:5173/` |
-| `npm run dev:docs` | Start Docs | Launches the VitePress documentation site |
+| `npm run dev:docs` | Start Docs | Launches the VitePress documentation site at `http://localhost:5174/` |
 
 ### Building Packages
 
@@ -111,7 +127,6 @@ To publish a new version of the package:
    ```bash
    npm publish --access public
    ```
-   *Note: If your account enforces Two-Factor Authentication (2FA), open the generated browser verification link and press **Enter** to finalize the upload.*
 
 ---
 

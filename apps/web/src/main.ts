@@ -29,23 +29,50 @@ const app = getRequiredElement<HTMLDivElement>('#app')
 app.innerHTML = `
   <div class="shell">
     <header class="topbar">
-      <div class="brand">
-        <div class="brand-mark" aria-hidden="true">
-          <span class="brand-orb"></span>
-        </div>
-        <div>
-          <p class="eyebrow">Inertia-driven interface motion</p>
+      <div class="brand-container">
+        <p class="eyebrow">Inertia-driven interface motion</p>
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <svg class="brand-logo" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%; padding: 8px;">
+              <path d="M30 10 C22 2, 10 6, 8 18 C6 30, 18 34, 28 30 C34 27, 34 20, 28 18 L18 18" stroke="url(#trackGrad)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="28" cy="18" r="4.5" fill="#8dd3ff" />
+              <circle cx="28" cy="18" r="8" fill="#8dd3ff" opacity="0.3" />
+              <defs>
+                <linearGradient id="trackGrad" x1="8" y1="8" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#7dd3ff" />
+                  <stop offset="60%" stop-color="#46a3ff" />
+                  <stop offset="100%" stop-color="#8b5cf6" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
           <h1 class="kinetic-text">Glissix</h1>
         </div>
       </div>
       <nav class="links">
+        <a href="https://github.com/nilanshukumarsingh" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub">
+          <svg class="icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/nilanshukumarsingh/" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn">
+          <svg class="icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+          </svg>
+        </a>
+        <a href="https://x.com/nilanshukumar81" target="_blank" rel="noopener noreferrer" class="social-link" title="X">
+          <svg class="icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
         <a href="http://localhost:5174">Docs</a>
         <span class="version">v0.1.0</span>
       </nav>
     </header>
 
-    <main class="layout">
-      <section class="copy">
+    <!-- Hero Header (Full Width) -->
+    <section class="hero-section">
+      <div class="hero-content">
         <p class="kicker">Obsidian Lab</p>
         <h2>Material motion for interfaces that need drag, memory, and intent.</h2>
         <p class="lede">
@@ -56,37 +83,17 @@ app.innerHTML = `
           <div class="install">npm install glissix</div>
           <a class="secondary-link" href="http://localhost:5174/guide/getting-started">Read the guide</a>
         </div>
-        <ul class="notes">
-          <li>Named material presets instead of anonymous tuning numbers.</li>
-          <li>Impulse injection, scalar progress helpers, and zero runtime dependencies.</li>
-          <li>Built to power magnetic UI, kinetic drawers, and chained motion systems.</li>
-        </ul>
-        <div class="code-preview">
-          <p class="code-label">Quick sample</p>
-          <pre><code>const motion = new Glissix(0, 0)
-motion.useMaterial('LEATHER')
-motion.applyImpulse(8, -4)
-motion.setTarget(pointerX, pointerY)
+      </div>
+      <ul class="notes">
+        <li>Named material presets instead of anonymous tuning numbers.</li>
+        <li>Impulse injection, scalar progress helpers, and zero runtime dependencies.</li>
+        <li>Built to power magnetic UI, kinetic drawers, and chained motion systems.</li>
+      </ul>
+    </section>
 
-const { x, y } = motion.step()</code></pre>
-        </div>
-        <div class="maker">
-          <p class="code-label">Built by</p>
-          <h3>Nilanshu Kumar Singh</h3>
-          <p>
-            Full-stack developer focused on tactile interfaces, disciplined systems thinking,
-            and product surfaces that feel deliberate instead of generic.
-          </p>
-          <div class="maker-links">
-            <a href="https://www.linkedin.com/in/nilanshukumarsingh">LinkedIn</a>
-            <a href="https://github.com/nilanshukumarsingh">GitHub</a>
-            <a href="https://nilanshu.vercel.app/">Portfolio</a>
-            <a href="http://x.com/nilanshukumar81">X</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="lab-panel">
+    <main class="layout">
+      <!-- Column 1: Lab Core -->
+      <section class="lab-panel core-panel">
         <div class="panel-head">
           <div>
             <p class="panel-label">Module 01</p>
@@ -156,7 +163,10 @@ const { x, y } = motion.step()</code></pre>
           </div>
           <canvas id="oscilloscope" class="oscilloscope"></canvas>
         </div>
+      </section>
 
+      <!-- Column 2: Secondary Modules & Code -->
+      <section class="lab-panel modules-panel">
         <section class="module">
           <div class="module-copy">
             <p class="panel-label">Module 02</p>
@@ -181,6 +191,53 @@ const { x, y } = motion.step()</code></pre>
           </div>
           <div id="chain-container" class="chain-container"></div>
         </section>
+
+        <div class="code-preview">
+          <p class="code-label">Quick sample</p>
+          <pre><code>const motion = new Glissix(0, 0)
+motion.useMaterial('LEATHER')
+motion.applyImpulse(8, -4)
+motion.setTarget(pointerX, pointerY)
+
+const { x, y } = motion.step()</code></pre>
+        </div>
+
+        <div class="maker">
+          <p class="code-label">Built by</p>
+          <h3>Nilanshu Kumar Singh</h3>
+          <p>
+            Full-stack developer focused on tactile interfaces, disciplined systems thinking,
+            and product surfaces that feel deliberate instead of generic.
+          </p>
+          <div class="maker-links">
+            <a href="https://github.com/nilanshukumarsingh" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+              GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/nilanshukumarsingh/" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              </svg>
+              LinkedIn
+            </a>
+            <a href="https://x.com/nilanshukumar81" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+              X
+            </a>
+            <a href="https://nilanshu.vercel.app/" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+              Portfolio
+            </a>
+          </div>
+        </div>
       </section>
     </main>
   </div>
@@ -268,7 +325,8 @@ let audioContext: AudioContext | null = null
 
 function ensureAudioContext() {
   if (!audioContext) {
-    audioContext = new AudioContext()
+    const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext
+    audioContext = new AudioContextClass()
   }
 
   return audioContext
@@ -289,22 +347,41 @@ function initAudioOnGesture() {
 
 function playMechanicalClick() {
   const context = ensureAudioContext()
+  if (!context) return
+  
   const now = context.currentTime
-  const oscillator = context.createOscillator()
-  const gain = context.createGain()
-
-  oscillator.type = 'triangle'
-  oscillator.frequency.setValueAtTime(320, now)
-  oscillator.frequency.exponentialRampToValueAtTime(110, now + 0.08)
-
-  gain.gain.setValueAtTime(0.0001, now)
-  gain.gain.exponentialRampToValueAtTime(0.025, now + 0.005)
-  gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.09)
-
-  oscillator.connect(gain)
-  gain.connect(context.destination)
-  oscillator.start(now)
-  oscillator.stop(now + 0.1)
+  
+  // 1. High-frequency transient (metallic snap)
+  const osc1 = context.createOscillator()
+  const gain1 = context.createGain()
+  osc1.type = 'sine'
+  osc1.frequency.setValueAtTime(1400, now)
+  osc1.frequency.exponentialRampToValueAtTime(350, now + 0.012)
+  
+  gain1.gain.setValueAtTime(0.12, now)
+  gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.012)
+  
+  osc1.connect(gain1)
+  gain1.connect(context.destination)
+  
+  // 2. Low-frequency housing resonance
+  const osc2 = context.createOscillator()
+  const gain2 = context.createGain()
+  osc2.type = 'triangle'
+  osc2.frequency.setValueAtTime(160, now)
+  osc2.frequency.exponentialRampToValueAtTime(70, now + 0.035)
+  
+  gain2.gain.setValueAtTime(0.08, now)
+  gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.035)
+  
+  osc2.connect(gain2)
+  gain2.connect(context.destination)
+  
+  // Start/Stop
+  osc1.start(now)
+  osc1.stop(now + 0.02)
+  osc2.start(now)
+  osc2.stop(now + 0.05)
 }
 
 function clamp(value: number, min: number, max: number) {
@@ -337,7 +414,7 @@ function syncControlVisuals() {
   frictionValue.textContent = liveConfig.friction.toFixed(2)
   massValue.textContent = liveConfig.mass.toFixed(2)
 
-  const knobPercent = (liveConfig.mass - 0.1) / (5 - 0.1)
+  const knobPercent = (liveConfig.mass - 0.1) / (10 - 0.1)
   const knobDegrees = knobPercent * 300 - 150
   massMarker.style.transform = `translateX(-50%) rotate(${knobDegrees}deg)`
 
@@ -359,6 +436,12 @@ function updateConfig(partial: Partial<GlissixConfig>) {
     tension: clamp(liveConfig.tension * 0.9, 0.001, 1),
     friction: liveConfig.friction,
   })
+
+  for (const button of materialsRoot.querySelectorAll<HTMLButtonElement>('.material-chip')) {
+    button.dataset.active = 'false'
+  }
+  materialLabel.textContent = 'CUSTOM'
+
   syncControlVisuals()
 }
 
@@ -377,8 +460,8 @@ function setupMassKnob() {
       return
     }
 
-    const delta = (startY - event.clientY) * 0.01
-    updateConfig({ mass: clamp(startValue + delta, 0.1, 5) })
+    const delta = (startY - event.clientY) * 0.08
+    updateConfig({ mass: clamp(startValue + delta, 0.1, 10) })
   }
 
   massKnob.onpointerup = (event) => {
@@ -470,27 +553,71 @@ function updateOscilloscope(velocity: number) {
     oscHistory.shift()
   }
 
+  // 1. Clear canvas
   context.clearRect(0, 0, oscilloscope.width, oscilloscope.height)
-  context.strokeStyle = '#7dd3ff'
-  context.lineWidth = 2
-  context.lineJoin = 'round'
-  context.shadowBlur = 12
-  context.shadowColor = '#7dd3ff'
+
+  // 2. Draw HUD Faint Dotted Center Baseline
+  context.save()
+  context.strokeStyle = 'rgba(125, 211, 255, 0.15)'
+  context.lineWidth = 1
+  context.setLineDash([4, 4])
   context.beginPath()
-
-  oscHistory.forEach((value, index) => {
-    const x = (index / Math.max(oscHistory.length - 1, 1)) * oscilloscope.width
-    const y = oscilloscope.height / 2 + value
-
-    if (index === 0) {
-      context.moveTo(x, y)
-    } else {
-      context.lineTo(x, y)
-    }
-  })
-
+  context.moveTo(0, oscilloscope.height / 2)
+  context.lineTo(oscilloscope.width, oscilloscope.height / 2)
   context.stroke()
-  context.shadowBlur = 0
+  context.restore()
+
+  // 3. Draw Waveform Trace with Gradient and Glow
+  if (oscHistory.length > 0) {
+    context.save()
+    const gradient = context.createLinearGradient(0, 0, oscilloscope.width, 0)
+    gradient.addColorStop(0, '#7dd3ff')
+    gradient.addColorStop(0.5, '#46a3ff')
+    gradient.addColorStop(1, '#8b5cf6')
+
+    context.strokeStyle = gradient
+    context.lineWidth = 2.5
+    context.lineJoin = 'round'
+    context.lineCap = 'round'
+    context.shadowBlur = 10
+    context.shadowColor = 'rgba(70, 163, 255, 0.8)'
+    context.beginPath()
+
+    oscHistory.forEach((value, index) => {
+      const x = (index / Math.max(oscHistory.length - 1, 1)) * oscilloscope.width
+      const y = oscilloscope.height / 2 + value
+
+      if (index === 0) {
+        context.moveTo(x, y)
+      } else {
+        context.lineTo(x, y)
+      }
+    })
+
+    context.stroke()
+    context.restore()
+  }
+
+  // 4. Overlay HUD Telemetry Text
+  context.save()
+  context.font = '9px Consolas, Courier New, monospace'
+  context.fillStyle = 'rgba(125, 211, 255, 0.65)'
+
+  // Top-left
+  context.fillText('SYS: ANALYZER // ACTIVE', 12, 18)
+
+  // Top-right
+  const maxVal = oscHistory.length > 0 ? Math.max(...oscHistory.map(Math.abs)) : 0
+  const liveAmp = (maxVal / 12).toFixed(2)
+  context.fillText(`AMP: ${liveAmp} units/s`, oscilloscope.width - 120, 18)
+
+  // Bottom-left
+  context.fillText(`MODE: ${materialLabel.textContent}`, 12, oscilloscope.height - 12)
+
+  // Bottom-right
+  context.fillText('RATE: 60Hz // SCALE: x1.0', oscilloscope.width - 140, oscilloscope.height - 12)
+  
+  context.restore()
 }
 
 function updateFps(now: number) {
@@ -708,15 +835,24 @@ chainContainer.addEventListener('pointerleave', () => {
   chainActive = false
 })
 
-window.addEventListener('resize', () => {
-  resizeLayouts()
-  syncControlVisuals()
-})
-
 setupMassKnob()
 setupPad()
 setMaterial('LEATHER')
-resizeLayouts(true)
-placeCursorBlob(magnetCenterX, magnetCenterY)
+
+let hasInitialized = false
+const resizeObserver = new ResizeObserver(() => {
+  if (!hasInitialized) {
+    resizeLayouts(true)
+    placeCursorBlob(magnetCenterX, magnetCenterY)
+    hasInitialized = true
+  } else {
+    resizeLayouts(false)
+  }
+  syncControlVisuals()
+})
+
+resizeObserver.observe(magnetZone)
+resizeObserver.observe(chainContainer)
+
 initAudioOnGesture()
 requestAnimationFrame(animateFrame)
