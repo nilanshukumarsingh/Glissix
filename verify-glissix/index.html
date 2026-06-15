@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glissix Visual Verification Demo</title>
+  <style>
+    body {
+      background: #060913;
+      color: #edf2f7;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: crosshair;
+    }
+    
+    h1 {
+      font-weight: 600;
+      margin: 0 0 10px;
+      color: #7dd3ff;
+      text-shadow: 0 0 20px rgba(125, 211, 255, 0.3);
+    }
+    
+    p {
+      color: #aebfd1;
+      margin: 0 0 30px;
+      font-size: 1.1rem;
+    }
+
+    .instructions {
+      font-size: 0.9rem;
+      color: #71839a;
+      border: 1px dashed rgba(255, 255, 255, 0.1);
+      padding: 10px 20px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.01);
+    }
+    
+    /* The kinetic circle container */
+    .ball {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: radial-gradient(circle at 35% 35%, #7dd3ff, #8b5cf6);
+      border-radius: 50%;
+      box-shadow: 0 0 25px rgba(125, 211, 255, 0.5);
+      pointer-events: none;
+      transform: translate3d(0, 0, 0);
+      will-change: transform;
+      top: 0;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Glissix Visual Demo</h1>
+  <p>Move your mouse around the screen to see physical springs in action!</p>
+  <div class="instructions">The ball trails your cursor using Glissix's "LEATHER" mass & friction math.</div>
+
+  <div id="ball" class="ball"></div>
+
+  <script type="module">
+    // Import Glissix directly from the installed package dist folder
+    import { Glissix } from './node_modules/glissix/dist/index.js';
+
+    const ball = document.getElementById('ball');
+    
+    // Initialize Glissix in the center of the screen
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const tracker = new Glissix(width / 2, height / 2);
+    
+    // Use the pre-tuned LEATHER preset (heavy, premium tactile damping)
+    tracker.useMaterial('LEATHER');
+
+    // Track mouse coordinates
+    window.addEventListener('mousemove', (event) => {
+      // Offset by 20px to center the 40px ball around the cursor tip
+      tracker.setTarget(event.clientX - 20, event.clientY - 20);
+    });
+
+    // Run the animation loop
+    function animate() {
+      // Step computes the next physical coordinate based on delta forces
+      const { x, y } = tracker.step();
+      
+      // Update position using CSS translate3d
+      ball.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+
+</body>
+</html>
