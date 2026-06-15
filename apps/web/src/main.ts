@@ -876,6 +876,7 @@ function updateHeroPhysics() {
     const clampedY = clamp(y, 75, rect.height - 75)
     if (clampedX !== x || clampedY !== y) {
       heroPhysics.reset(clampedX, clampedY)
+      heroPhysics.setTarget(heroCenterX, heroCenterY)
     }
     heroDraggableCard.style.transform = `translate3d(${clampedX - 55}px, ${clampedY - 75}px, 0)`
   }
@@ -1225,6 +1226,7 @@ function updateModalPhysics() {
     const clampedY = clamp(y, 105, rect.height - 105)
     if (clampedX !== x || clampedY !== y) {
       modalPhysics.reset(clampedX, clampedY)
+      modalPhysics.setTarget(modalCenterX, modalCenterY)
     }
     modalDraggableCard.style.transform = `translate3d(${clampedX - 75}px, ${clampedY - 105}px, 0)`
   }

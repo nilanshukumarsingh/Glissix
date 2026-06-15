@@ -917,6 +917,8 @@ input {
   user-select: none;
   touch-action: none;
   position: absolute;
+  top: 0;
+  left: 0;
   will-change: transform;
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -1150,6 +1152,8 @@ input {
   user-select: none;
   touch-action: none;
   position: absolute;
+  top: 0;
+  left: 0;
   will-change: transform;
 }
 .hero-draggable-card:active {
