@@ -211,16 +211,28 @@ npm run test
 
 ## ✦ Production Deployment & Routing (Vercel Single-Domain)
 
-For production, each monorepo package is deployed as an independent Vercel project and unified under a single root domain via **Vercel Rewrites**:
+For production, each monorepo package is deployed as an independent Vercel project and unified under a single root domain via **Vercel Rewrites**.
 
-1. **`apps/web`** (Main domain, e.g. `glissix.vercel.app`)
-2. **`apps/docs`** (Served at `/docs` subpath via rewrite pointing to `glissix-docs.vercel.app`)
-3. **`apps/verify-glissix`** (Served at `/verify` subpath via rewrite pointing to `glissix-verify.vercel.app`)
+### Vercel Project Configurations
 
-The proxying and path rewriting are handled automatically by [apps/web/vercel.json](file:///c:/Users/asus/Desktop/glissade/apps/web/vercel.json):
+Since this is a monorepo, you must deploy the projects from the **repository root** and configure the **Root Directory** settings in the Vercel UI for each project to let Vercel access sibling packages:
+
+| Vercel Project | Root Directory | Build Command | Output Directory |
+| :--- | :--- | :--- | :--- |
+| **`glissix-web`** (Main app) | `apps/web` | `npm run build:pkg --prefix ../.. && npm run build` | `dist` |
+| **`glissix-docs`** | `apps/docs` | `npm run build` | `.vitepress/dist` |
+| **`glissix-verify`** | `apps/verify-glissix` | `npm run build:pkg --prefix ../.. && npm run build` | `dist` |
+
+> [!NOTE]
+> The build command `npm run build:pkg --prefix ../..` runs from the project root directory and compiles the core `glissix` library in the sibling directory so that the application can bundle it.
+
+### Unified Path Rewriting
+
+The main project (`glissix-web`) handles routing paths to the sub-projects automatically using the [apps/web/vercel.json](file:///c:/Users/asus/Desktop/glissade/apps/web/vercel.json) file:
 
 ```json
 {
+  "outputDirectory": "dist",
   "rewrites": [
     {
       "source": "/docs",
