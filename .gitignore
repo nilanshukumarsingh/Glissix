@@ -8,9 +8,14 @@ coverage/
 apps/docs/.vitepress/cache/
 apps/docs/.vitepress/dist/
 
+
 # Logs
 npm-debug.log*
 yarn-error.log*
 
 # Build outputs
 *.tsbuildinfo
+
+# Local test directories
+verify-glissix/
+scratch-test/
