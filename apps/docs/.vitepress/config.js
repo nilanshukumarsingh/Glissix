@@ -30,7 +30,7 @@ export default defineConfig({
     socialLinks: [
       { icon: 'github', link: 'https://github.com/nilanshukumarsingh' },
       { icon: 'linkedin', link: 'https://www.linkedin.com/in/nilanshukumarsingh/' },
-      { icon: 'twitter', link: 'https://x.com/nilanshukumar81' },
+      { icon: 'x', link: 'https://x.com/nilanshukumar81' },
     ],
     footer: {
       message: 'Glissix is built as a tactile UI motion engine for modern interfaces.',
