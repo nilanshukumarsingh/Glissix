@@ -1,141 +1,219 @@
-# Glissix Workspace
+# ✦ Glissix
 
-Glissix is a lightweight, high-performance TypeScript physics engine for tactile UI motion. It models inertia, mass, tension, and friction so that interface components feel dragged, pulled, and naturally released rather than following artificial cubic-bezier curves.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/nilanshukumarsingh/Glissix/main/apps/web/public/favicon.svg" alt="Glissix Logo" width="100" height="100" />
+</p>
 
-This repository is organized as a monorepo workspace containing the core physics engine library, interactive test suites, and documentation.
+<h3 align="center">Glissix</h3>
+
+<p align="center">
+  <strong>An inertia-driven, spring-damper physics engine for tactile UI motion.</strong>
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/glissix"><img src="https://img.shields.io/npm/v/glissix.svg?style=for-the-badge&color=blue" alt="NPM Version" /></a>
+  <a href="https://www.npmjs.com/package/glissix"><img src="https://img.shields.io/npm/dm/glissix.svg?style=for-the-badge&color=violet" alt="NPM Downloads" /></a>
+  <a href="https://bundlephobia.com/package/glissix"><img src="https://img.shields.io/bundlephobia/minzip/glissix?style=for-the-badge&color=emerald" alt="Bundle Size" /></a>
+  <a href="https://github.com/nilanshukumarsingh/Glissix/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/glissix.svg?style=for-the-badge&color=orange" alt="License" /></a>
+</p>
 
 ---
 
-## Workspace Packages
+## ✦ Overview
 
-- **`packages/glissix`**: The core library package (published as **`glissix`** on npm), compiled to ESM, CJS, and TypeScript typings.
-- **`apps/web`**: A highly polished, interactive visual playground built with Vite and raw CSS to test physics properties.
-- **`apps/docs`**: A VitePress documentation portal detailing the mathematical model, API specifications, and presets.
+Traditional transition tools require you to specify a preset curve (like ease-out) and duration. If a user flicks an element halfway through an animation, the motion snaps awkwardly. 
+
+**Glissix** models physical simulation—incorporating momentum, weight, and drag—so that interface elements feel dragged, flicked, and released naturally. It provides beautiful tactile motion presets like `LEATHER`, `RUBBER`, `HONEY`, and `GHOST`.
+
+> [!TIP]
+> **Why Glissix?**
+> 1. **Preserved Momentum**: If a user drags and releases at speed, the swipe velocity is fed directly into the engine, producing a seamless decelerating slide.
+> 2. **Dynamic Redirection**: Changing targets mid-flight alters the acceleration vector smoothly, preventing sudden direction snaps.
+> 3. **Pure Math**: No browser timers or complex rendering context required, making it lightweight (**~2.2KB** gzipped) and framework-agnostic.
 
 ---
 
-## How to Run the Workspace Applications
+## ✦ Workspace Structure
 
-To run the playground and documentation sites locally, follow these steps:
+This repository is organized as a monorepo workspace containing the core physics library, interactive test suites, and playground apps:
 
-### 1. Installation
+* 📦 **`packages/glissix`**: The core library package (published as **`glissix`** on npm), compiled to ESM, CJS, and TypeScript typings.
+* 🖥️ **`apps/web`**: A highly polished, interactive visual playground built with Vite and raw CSS to test physics properties.
+* 📖 **`apps/docs`**: A VitePress documentation portal detailing the mathematical model, API specifications, and presets.
 
-From the workspace root directory, install the dependencies for all packages:
+---
+
+## ✦ Installation
+
+Install the package directly into your project:
+
 ```bash
-npm install
+npm install glissix
 ```
 
-### 2. Running the Visual Playground (Web App)
-
-To launch the interactive playground (runs on `http://localhost:5173/`):
-```bash
-npm run dev:web
-```
-
-### 3. Running the Documentation Site (Docs App)
-
-The "Docs" button on the visual playground links to `http://localhost:5174/`. To make this link work, you **must run the documentation server in a separate terminal window**:
-```bash
-npm run dev:docs
-```
-
 ---
 
-## Interactive Playground Modules (`apps/web`)
+## ✦ Quick Start
 
-The web app includes sandbox modules that let you audit, test, and tune the spring mathematics:
-
-1. **Magnetic Core (Stress Field)**: An interactive vector field displaying physical coordinates, force vectors, and instant feedback for presets like `LEATHER`, `RUBBER`, `HONEY`, and `GHOST`.
-2. **Signal Analyzer (Oscilloscope)**: Plots real-time kinetic wave graphs for displacement and velocity, tracking peak values and settling times.
-3. **Specimen Drawer (Kinetic Bottom Sheet)**: A bottom sheet demo implementing swipe-to-close gestures, velocity injection on release, and bouncy boundary limits.
-4. **Elastic Chain (Kinematics)**: A chain of connected spring masses displaying kinetic propagation and inertia transfer across connected elements.
-
----
-
-## Available Scripts
-
-All scripts can be run directly from the workspace root:
-
-### Running Applications
-
-| Command | Action | Description |
-| :--- | :--- | :--- |
-| `npm run dev:web` | Start Playground | Launches the interactive visual playground at `http://localhost:5173/` |
-| `npm run dev:docs` | Start Docs | Launches the VitePress documentation site at `http://localhost:5174/` |
-
-### Building Packages
-
-| Command | Action | Description |
-| :--- | :--- | :--- |
-| `npm run build` | Build Workspace | Compiles the library and builds both static websites for production |
-| `npm run build:pkg` | Build Library | Compiles the core `glissix` library only (emits `dist/` folders) |
-
-### Testing
-
-| Command | Action | Description |
-| :--- | :--- | :--- |
-| `npm run test` | Run Test Suite | Executes the Vitest unit tests for the core physics engine |
-
----
-
-## Package Usage Quick Start
-
-Once the package is installed in your project (`npm install glissix`), initialize it as follows:
+### 1. Basic 2D Position Tracking (e.g. Card Drag & Flick)
 
 ```typescript
 import { Glissix } from 'glissix';
 
-// 1. Instantiate with a starting coordinate (0, 0)
-const motion = new Glissix(0, 0);
+// 1. Instantiate with starting coordinates (0, 0)
+const tracker = new Glissix(0, 0);
 
-// 2. Select a pre-tuned tactile material preset
-motion.useMaterial('LEATHER');
+// 2. Load a built-in tactile preset
+tracker.useMaterial('LEATHER');
 
-// 3. Move target position on user action (e.g. pointermove)
-motion.setTarget(150, 300);
+// 3. Target a new coordinate (e.g., when the user releases a drag)
+tracker.setTarget(300, 150);
 
-// 4. Inject speed on flick/release (velocity-x: 20, velocity-y: -10)
-motion.applyImpulse(20, -10);
+// 4. Inject an instantaneous speed (e.g. from pointer velocity tracker)
+tracker.applyImpulse(25, -12);
 
-// 5. Update coordinates inside requestAnimationFrame loop
+// 5. Physics animation loop
 function animate() {
-  const { x, y } = motion.step(); // Computes next frame coordinates
-  element.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+  // Step computes the next physical coordinate based on delta forces
+  const { x, y, vx, vy } = tracker.step();
 
-  if (motion.getVelocity() > 0.001) {
+  // Apply positions to CSS transform
+  card.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+
+  // Keep animating until the element settles
+  const speed = tracker.getVelocity();
+  const distToTarget = Math.hypot(tracker.getState().targetX - x, tracker.getState().targetY - y);
+
+  if (speed > 0.001 || distToTarget > 0.01) {
     requestAnimationFrame(animate);
   }
 }
 animate();
 ```
 
+### 2. Animating 1D Values (e.g. Drawer Swipe-to-Open)
+
+You can use the helper `updateValue()` to drive single variables like sheet positions, opacity, scale, or scroll offsets:
+
+```typescript
+import { Glissix } from 'glissix';
+
+const opacityTracker = new Glissix(0, 0); // initial value 0
+opacityTracker.useMaterial('RUBBER');
+
+function fadeOut() {
+  function tick() {
+    opacityTracker.updateValue(1.0, (val, speed) => {
+      overlay.style.opacity = val.toString();
+    });
+
+    if (Math.abs(opacityTracker.getState().x - 1.0) > 0.001) {
+      requestAnimationFrame(tick);
+    }
+  }
+  tick();
+}
+```
+
 ---
 
-## Publishing to NPM
+## ✦ Core Physical Parameters
 
-To publish a new version of the package:
+Unlike duration-based animators, Glissix uses a mathematical spring-mass-damper system:
 
-1. Build the library target:
-   ```bash
-   npm run build:pkg
-   ```
-2. Navigate to the package directory:
-   ```bash
-   cd packages/glissix
-   ```
-3. Run the publish command with public access:
-   ```bash
-   npm publish --access public
-   ```
+| Parameter | Recommended Range | Description |
+| :--- | :--- | :--- |
+| **`mass`** | `0.1` - `10.0` | Represents the inertia of the moving element. A higher mass creates a feeling of weight, taking longer to accelerate and decelerate. |
+| **`tension`** | `0.001` - `1.0` | Represents the stiffness of the spring. High tension pulls the element toward the target aggressively, while lower tension feels loose. |
+| **`friction`** | `0.01` - `0.999` | Represents the damping or resistance. High friction dampens oscillation quickly, while low friction lets the element bounce. |
 
 ---
 
-## Creator
+## ✦ Tactile Material Presets
+
+Load pre-configured properties directly using `tracker.useMaterial('PRESET')`:
+
+| Material Preset | Mass | Tension | Friction | Physical Feeling |
+| :--- | :--- | :--- | :--- | :--- |
+| 🪵 **`LEATHER`** | `2.0` | `0.10` | `0.85` | Heavy, draggy, premium tactile dampening |
+| 🪀 **`RUBBER`** | `0.5` | `0.40` | `0.70` | Snappy, highly responsive, elastic spring |
+| 🍯 **`HONEY`** | `5.0` | `0.05` | `0.95` | Slow, high-viscosity, super smooth glide |
+| 👻 **`GHOST`** | `0.1` | `0.20` | `0.99` | Float-like, almost frictionless motion |
+
+---
+
+## ✦ API Reference
+
+### `new Glissix(initialX, initialY, config?)`
+Creates a new motion controller.
+* `initialX`: Starting position along X axis.
+* `initialY`: Starting position along Y axis.
+* `config`: Optional object containing `{ mass, tension, friction }` (values are automatically clamped).
+
+### `setTarget(x, y)`
+Sets the new destination coordinates.
+
+### `applyImpulse(vx, vy)`
+Injects instantaneous impulse velocity (adds to current velocity). Perfect for throwing/flicking cards or lists.
+
+### `step()`
+Performs a single simulation step. Returns the current physics metrics: `{ x, y, vx, vy }`.
+
+### `updateValue(target, callback)`
+Steps a single scalar value. Sets target-x to `target` and returns the output via the callback: `callback(value, velocity)`.
+
+### `useMaterial(name)`
+Loads a pre-tuned configuration (`'LEATHER' | 'RUBBER' | 'HONEY' | 'GHOST'`).
+
+### `setConfig(config)`
+Modifies the active configuration fields on-the-fly.
+
+### `getVelocity()`
+Returns the scalar magnitude of the current velocity vector (speed).
+
+### `getState()`
+Returns the exact physics simulation state copy: `{ x, y, vx, vy, targetX, targetY }`.
+
+### `reset(x?, y?)`
+Resets the position, target, and sets velocities to zero.
+
+---
+
+## ✦ Local Workspace Setup
+
+To run the playground and documentation sites locally:
+
+### 1. Installation
+```bash
+npm install
+```
+
+### 2. Running the Visual Playground (`apps/web`)
+Launches the interactive visual playground at `http://localhost:5173/`:
+```bash
+npm run dev:web
+```
+
+### 3. Running the Documentation Portal (`apps/docs`)
+Launches the VitePress documentation site at `http://localhost:5174/`:
+```bash
+npm run dev:docs
+```
+
+### 4. Running the Tests
+Runs the Vitest test suite for the core library:
+```bash
+npm run test
+```
+
+---
+
+## ✦ Creator
 
 Developed and maintained by **Nilanshu Kumar Singh**:
-- **LinkedIn**: [nilanshukumarsingh](https://www.linkedin.com/in/nilanshukumarsingh/)
-- **Twitter/X**: [@nilanshukumar81](https://x.com/nilanshukumar81)
+* **LinkedIn**: [nilanshukumarsingh](https://www.linkedin.com/in/nilanshukumarsingh/)
+* **Twitter/X**: [@nilanshukumar81](https://x.com/nilanshukumar81)
 
-## License
+## ✦ License
 
 MIT
